@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Калькулятор 2.0</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+
+    <meta charset="UTF-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+  </head>
+
+  <body>
+    <div class="wrapper">
+      <div class="header">
+        <button class="burger"><div class="brg">☰</div></button>
+        <div class="calc_version">Standard</div>
+      </div>
+
+      <div class="calculation_wrapper">
+        <div class="input_div">
+          <input type="text" class="input" />
+        </div>
+
+        <div class="m_buttons">
+          <button class="m_button m_c">MC</button>
+          <button class="m_button m_r">MR</button>
+          <button class="m_button m_plus">M+</button>
+          <button class="m_button m_minus">M-</button>
+          <button class="m_button m_s">MS</button>
+        </div>
+
+        <div class="buttons_container">
+          <button class="calc_but number_1 numbers">1</button>
+          <button class="calc_but number_2 numbers">2</button>
+          <button class="calc_but number_3 numbers">3</button>
+          <button class="calc_but number_4 numbers">4</button>
+          <button class="calc_but number_5 numbers">5</button>
+          <button class="calc_but number_6 numbers">6</button>
+          <button class="calc_but number_7 numbers">7</button>
+          <button class="calc_but number_8 numbers">8</button>
+          <button class="calc_but number_9 numbers">9</button>
+          <button class="calc_but number_0 numbers">0</button>
+          <button class="calc_but dot btn_dot">.</button>
+          <button class="calc_but bracket bracket_open" data-value="(">(</button>
+          <button class="calc_but bracket bracket_close" data-value=")">)</button>
+          <button class="calc_but operator_plus operators" data-value="+">+</button>
+          <button class="calc_but operator_- operators" data-value="-">-</button>
+          <button class="calc_but operator_percent percent" data-value="%">%</button>
+          <button class="calc_but operator_x operators" data-value="*">x</button>
+          <button class="calc_but operator_÷ operators" data-value="/">÷</button>
+          <button class="calc_but operator_√ sqrt" data-value="√">√</button>
+          <button class="calc_but operator_xy operators" data-value="^">x<sup>y</sup></button>
+          <button class="calc_but clear_last change">CE</button>
+          <button class="calc_but clear_all change">C</button>
+          <button class="calc_but backspace change">⌫</button>
+          <button class="calc_but equals change">=</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="memhis_wrapper">
+
+     <div class="memhis_but">
+      <button class="history">History</button>
+      <button class="memory">Memory</button>
+     </div>
+
+      <div class="history_memory">
+        There is nothing here yet.
+      </div>
+      <button class="clear_history">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+    <path d="M4 7H20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <path d="M10 11V17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <path d="M14 11V17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    <path d="M6 7L7 21H17L18 7" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M9 7V4H15V7" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+  </svg>
+</button>
+    </div>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>

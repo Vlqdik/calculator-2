@@ -1,0 +1,443 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+body {
+  background: radial-gradient(circle at 20% 90%, rgba(46, 53, 36, 0.25), transparent 30%), radial-gradient(ellipse at 65% 20%, rgba(47, 36, 54, 0.25), transparent 50%), radial-gradient(circle at 90% 15%, rgba(85, 54, 54, 0.2), transparent 35%), radial-gradient(circle at 80% 65%, rgba(44, 51, 70, 0.2), transparent 35%), linear-gradient(190deg, #261731 0%, #291c33 50%, #2a202e 100%);
+  font-family: "Inter", sans-serif;
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  display: flex;
+}
+
+.burger {
+  background-color: transparent;
+  color: white;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  transition: 0.2s;
+  height: 30px;
+  width: 30px;
+}
+.burger:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.burger:active .brg {
+  transform: scale(0.8);
+  font-weight: 800;
+}
+
+.brg {
+  transition: transform 0.2s, font-weight 0.2s;
+}
+
+.calc_version {
+  font-size: 19px;
+  margin: 2px 0 0 10px;
+  color: white;
+}
+
+.input_div {
+  width: 78vw;
+  height: 20vh;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.input {
+  display: flex;
+  justify-self: right;
+  height: 15vh;
+  width: 70vw;
+  color: white;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  text-align: right;
+  font-size: 60px;
+  padding: 10px;
+}
+
+.history {
+  font-size: 14px;
+  color: rgb(255, 255, 255);
+  background-color: transparent;
+  border: none;
+  margin: 0 20px 0 0;
+}
+.history:hover {
+  color: rgb(224, 224, 224);
+}
+.history:active {
+  color: rgb(187, 187, 187);
+}
+
+.memory {
+  font-size: 14px;
+  color: rgb(255, 255, 255);
+  background-color: transparent;
+  border: none;
+  margin: 0 20px 0 0;
+}
+.memory:hover {
+  color: rgb(224, 224, 224);
+}
+.memory:active {
+  color: rgb(187, 187, 187);
+}
+
+.m_button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  border-radius: 10px;
+  color: white;
+  height: 50px;
+  width: 50px;
+  transition: 0.2s;
+}
+.m_button:hover {
+  background-color: rgba(134, 134, 134, 0.2);
+}
+.m_button:active {
+  background-color: rgba(78, 78, 78, 0.2);
+}
+
+.header {
+  display: flex;
+  grid-area: head;
+}
+
+.memhis_wrapper {
+  grid-area: memHis;
+}
+
+.calculation_wrapper {
+  grid-area: calculation;
+}
+
+.history_memory {
+  color: white;
+  height: 85vh;
+  font-size: 14px;
+  padding: 10px;
+  width: 20vw;
+}
+
+.memhis_but {
+  height: 5vh;
+  display: flex;
+}
+
+.clear_history {
+  border: none;
+  color: white;
+  background: none;
+  display: none;
+  justify-self: right;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-rows: 40px 1fr;
+  grid-template-areas: "head" "calculation" "calculation" "calculation" "calculation" "calculation";
+  width: 80vw;
+}
+
+.buttons_container {
+  display: grid;
+  grid-template-areas: "percent clearLast clearAll backspace" "bracketOpen bracketClose root divide" "n7 n8 n9 multiply" "n4 n5 n6 minus" "n1 n2 n3 plus" "extent n0 dot equals";
+}
+
+.calc_but {
+  height: 106px;
+  margin: 1.5px;
+  border-radius: 5px;
+  border: none;
+  font-size: 22px;
+}
+
+.numbers {
+  color: white;
+  background-color: rgba(240, 240, 240, 0.1);
+}
+.numbers:hover {
+  background-color: rgba(210, 210, 210, 0.1);
+}
+.numbers:active {
+  color: rgb(230, 230, 230);
+  background-color: rgba(150, 150, 150, 0.1);
+}
+
+.operators {
+  color: white;
+  background-color: rgba(200, 200, 200, 0.1);
+}
+.operators:hover {
+  background-color: rgba(165, 165, 165, 0.1);
+}
+.operators:active {
+  color: rgb(230, 230, 230);
+  background-color: rgba(125, 125, 125, 0.1);
+}
+
+.btn_dot {
+  color: white;
+  background-color: rgba(240, 240, 240, 0.1);
+}
+.btn_dot:hover {
+  background-color: rgba(210, 210, 210, 0.1);
+}
+.btn_dot:active {
+  color: rgb(230, 230, 230);
+  background-color: rgba(150, 150, 150, 0.1);
+}
+
+.change {
+  color: white;
+  background-color: rgba(200, 200, 200, 0.1);
+}
+.change:hover {
+  background-color: rgba(165, 165, 165, 0.1);
+}
+.change:active {
+  color: rgb(230, 230, 230);
+  background-color: rgba(125, 125, 125, 0.1);
+}
+
+.bracket {
+  color: white;
+  background-color: rgba(200, 200, 200, 0.1);
+}
+.bracket:hover {
+  background-color: rgba(165, 165, 165, 0.1);
+}
+.bracket:active {
+  color: rgb(230, 230, 230);
+  background-color: rgba(125, 125, 125, 0.1);
+}
+
+.sqrt {
+  color: white;
+  background-color: rgba(200, 200, 200, 0.1);
+}
+.sqrt:hover {
+  background-color: rgba(165, 165, 165, 0.1);
+}
+.sqrt:active {
+  color: rgb(230, 230, 230);
+  background-color: rgba(125, 125, 125, 0.1);
+}
+
+.percent {
+  color: white;
+  background-color: rgba(200, 200, 200, 0.1);
+}
+.percent:hover {
+  background-color: rgba(165, 165, 165, 0.1);
+}
+.percent:active {
+  color: rgb(230, 230, 230);
+  background-color: rgba(125, 125, 125, 0.1);
+}
+
+.number_1 {
+  grid-area: n1;
+}
+
+.number_2 {
+  grid-area: n2;
+}
+
+.number_3 {
+  grid-area: n3;
+}
+
+.number_4 {
+  grid-area: n4;
+}
+
+.number_5 {
+  grid-area: n5;
+}
+
+.number_6 {
+  grid-area: n6;
+}
+
+.number_7 {
+  grid-area: n7;
+}
+
+.number_8 {
+  grid-area: n8;
+}
+
+.number_9 {
+  grid-area: n9;
+}
+
+.number_0 {
+  grid-area: n0;
+}
+
+.dot {
+  grid-area: dot;
+}
+
+.bracket_open {
+  grid-area: bracketOpen;
+}
+
+.bracket_close {
+  grid-area: bracketClose;
+}
+
+.operator_plus {
+  grid-area: plus;
+}
+
+.operator_- {
+  grid-area: minus;
+}
+
+.operator_percent {
+  grid-area: percent;
+}
+
+.operator_x {
+  grid-area: multiply;
+}
+
+.operator_÷ {
+  grid-area: divide;
+}
+
+.operator_√ {
+  grid-area: root;
+}
+
+.operator_xy {
+  grid-area: extent;
+}
+
+.clear_last {
+  grid-area: clearLast;
+}
+
+.clear_all {
+  grid-area: clearAll;
+}
+
+.backspace {
+  grid-area: backspace;
+}
+
+.equals {
+  grid-area: equals;
+  color: black;
+  background-color: rgba(249, 179, 255, 0.9);
+}
+.equals:hover {
+  background-color: rgba(234, 168, 236, 0.9);
+}
+.equals:active {
+  color: rgb(51, 51, 51);
+  background-color: rgba(208, 148, 211, 0.9);
+}
+
+@media (max-width: 900px) {
+  body {
+    display: block;
+  }
+  .wrapper {
+    width: 100vw;
+    max-height: none;
+  }
+  .memhis_wrapper {
+    display: none;
+  }
+  .input_div {
+    width: 90vw;
+    height: 8vh;
+  }
+  .input {
+    height: 7vh;
+    font-size: 42px;
+    padding: 5px;
+  }
+  .calc_but {
+    height: 10vh;
+    margin: 1px;
+    border-radius: 10px;
+    border: none;
+    font-size: 20px;
+    height: 10vh;
+    width: 24vw;
+  }
+  .m_button {
+    height: 5vh;
+    width: 5vh;
+  }
+  .burger {
+    font-size: 22px;
+    height: 5vh;
+    width: 5vh;
+  }
+  .calc_version {
+    font-size: 22px;
+    margin: 5px 0 0 10px;
+  }
+  .buttons_container {
+    height: 73.2vw;
+    justify-content: space-between;
+    padding: 3px;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
