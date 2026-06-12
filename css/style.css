@@ -432,7 +432,7 @@ body {
   }
   .buttons_container {
     justify-content: space-between;
-    padding: 3px;
+    padding: 0 7px 0 7px;
   }
 }
 
