@@ -417,7 +417,7 @@ body {
     border-radius: 10px;
     border: none;
     font-size: 20px;
-    height: 10vh;
+    height: 12vh;
     width: 24vw;
   }
   .m_button {
@@ -434,7 +434,6 @@ body {
     margin: 5px 0 0 10px;
   }
   .buttons_container {
-    height: 73.2vw;
     justify-content: space-between;
     padding: 3px;
   }
