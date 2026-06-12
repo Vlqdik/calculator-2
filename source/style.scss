@@ -46,10 +46,6 @@ body {
     linear-gradient(190deg, #261731 0%, #291c33 50%, #2a202e 100%);
     font-family: "Inter", sans-serif;
     width: 100%;
-    min-height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
     display: flex;
 }
 
@@ -179,7 +175,7 @@ display: flex;
 
 .buttons_container{
 display: grid;
-
+padding: 5px;
 
 
 grid-template-areas: 
