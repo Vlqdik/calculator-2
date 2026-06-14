@@ -439,7 +439,7 @@ body {
 .side_menu {
   position: fixed;
   height: 100vh;
-  width: 300px;
+  width: 250px;
   top: 0;
   left: 0;
   display: grid;
@@ -448,7 +448,7 @@ body {
   grid-template-rows: repeat(3, 45px);
   background-color: rgb(47, 44, 53);
   border-radius: 10px;
-  transform: translateX(-300px);
+  transform: translateX(-250px);
   transition: 0.2s;
   z-index: 100;
 }
@@ -499,6 +499,10 @@ body {
 }
 .date:active {
   background-color: rgba(87, 87, 87, 0.25);
+}
+
+.active_burger {
+  transform: translateX(0px);
 }
 
 /*# sourceMappingURL=style.css.map */

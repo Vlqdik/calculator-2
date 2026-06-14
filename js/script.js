@@ -10,6 +10,8 @@ const openBracket = document.querySelector('.bracket_open');
 const closeBracket = document.querySelector('.bracket_close');
 const sqrt = document.querySelector('.sqrt');
 const percent = document.querySelector('.percent');
+const burger = document.querySelector('.burger');
+const sideMenu = document.querySelector('.side_menu');
 
 const numbersType = ['1','2','3','4','5','6','7','8','9','0'];
 
@@ -350,3 +352,10 @@ function calculateTokens(tokens){
 
 
 }
+
+
+
+
+burger.addEventListener('click', function(){
+    sideMenu.classList.toggle('active_burger')
+})
