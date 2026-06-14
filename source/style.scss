@@ -197,7 +197,7 @@ grid-template-areas:
 }
 
 .numbers{
-@include btn_col(rgb(255, 0, 0), rgba(240, 240, 240, 0.1), rgba(210, 210, 210, 0.1), rgb(230, 230, 230), rgba(150, 150, 150, 0.1));
+@include btn_col(white, rgba(240, 240, 240, 0.1), rgba(210, 210, 210, 0.1), rgb(230, 230, 230), rgba(150, 150, 150, 0.1));
 }
 
 
