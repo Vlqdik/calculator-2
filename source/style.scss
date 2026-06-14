@@ -426,8 +426,8 @@ height: 8vh;
 
 .calc_but{
 @include btn_look(10vh, 1px, 10px , 20px);
-height: 12vh;
-width: 24vw;
+height: 12.2vh;
+width: 23.5vw;
 }
 
 .m_button{
@@ -447,7 +447,6 @@ width: 24vw;
 
 .buttons_container{
   justify-content: space-between;
-  //padding: 0 7px 0 7px;
 }
 }
 
