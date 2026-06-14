@@ -46,6 +46,7 @@ body {
   background: radial-gradient(circle at 20% 90%, rgba(46, 53, 36, 0.25), transparent 30%), radial-gradient(ellipse at 65% 20%, rgba(47, 36, 54, 0.25), transparent 50%), radial-gradient(circle at 90% 15%, rgba(85, 54, 54, 0.2), transparent 35%), radial-gradient(circle at 80% 65%, rgba(44, 51, 70, 0.2), transparent 35%), linear-gradient(190deg, #261731 0%, #291c33 50%, #2a202e 100%);
   font-family: "Inter", sans-serif;
   width: 100%;
+  height: 100vh;
   display: flex;
 }
 
