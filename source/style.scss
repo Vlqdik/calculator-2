@@ -48,7 +48,7 @@ body {
     linear-gradient(190deg, #261731 0%, #291c33 50%, #2a202e 100%);
     font-family: "Inter", sans-serif;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
 }
 
@@ -427,7 +427,7 @@ height: 8vh;
 
 .calc_but{
 @include btn_look(10vh, 1px, 10px , 20px);
-height: 12.2vh;
+height: 12.1vh;
 width: 23.5vw;
 }
 
