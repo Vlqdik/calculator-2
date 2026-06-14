@@ -202,7 +202,7 @@ body {
 }
 
 .numbers {
-  color: white;
+  color: rgb(255, 0, 0);
   background-color: rgba(240, 240, 240, 0.1);
 }
 .numbers:hover {
@@ -507,7 +507,7 @@ body {
     border-radius: 10px;
     border: none;
     font-size: 20px;
-    height: 12.1vh;
+    height: 11.8vh;
     width: 23.5vw;
   }
   .m_button {
