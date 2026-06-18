@@ -419,8 +419,65 @@ grid-template-areas:
 @include btn_look(80px, 1.5px, 5px, 22px)
 }
 
-.scientific_m{
+.m_buttons {
+  margin-top: 0;
+}
+
+.m_buttons.scientific_m{
 margin-top: 75px;
+}
+
+
+
+
+.adv_but{
+  @include btn_col(white, rgba(200, 200, 200, 0.1), rgba(165, 165, 165, 0.1), rgb(230, 230, 230), rgba(125, 125, 125, 0.1));
+  display: none;
+}
+
+.π{
+  grid-area: pi;
+}
+
+.e{
+  grid-area: e;
+}
+
+.exp{
+  grid-area: exp;
+}
+
+.factorial{
+  grid-area: factorial;
+}
+
+.log10{
+  grid-area: log10;
+}
+
+.loge{
+  grid-area: loge;
+}
+
+.logx{
+  grid-area: logx;
+}
+
+.module{
+  grid-area: module;
+}
+
+
+.x2{
+  grid-area: x2;
+}
+
+.x3{
+  grid-area:x3 ;
+}
+
+.mod{
+  grid-area: mod;
 }
 
 
@@ -475,55 +532,4 @@ width: 23.5vw;
   justify-content: space-between;
 }
 }
-
-.adv_but{
-  @include btn_col(white, rgba(200, 200, 200, 0.1), rgba(165, 165, 165, 0.1), rgb(230, 230, 230), rgba(125, 125, 125, 0.1));
-  display: none;
-}
-
-.π{
-  grid-area: pi;
-}
-
-.e{
-  grid-area: e;
-}
-
-.exp{
-  grid-area: exp;
-}
-
-.factorial{
-  grid-area: factorial;
-}
-
-.log10{
-  grid-area: log10;
-}
-
-.loge{
-  grid-area: loge;
-}
-
-.logx{
-  grid-area: logx;
-}
-
-.module{
-  grid-area: module;
-}
-
-
-.x2{
-  grid-area: x2;
-}
-
-.x3{
-  grid-area:x3 ;
-}
-
-.mod{
-  grid-area: mod;
-}
-
 
