@@ -25,17 +25,17 @@
 
         <div class="div_calculator">Calculator</div>
 
-        <button class="standard"> <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <button class="standard mode"> <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
             <rect x="5" y="4" width="14" height="16" rx="2" stroke="currentColor" stroke-width="1.8"/>
             <path d="M8 8H16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
             <path d="M8 12H8.5M12 12H12.5M16 12H16.5M8 16H8.5M12 16H12.5M16 16H16.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg><span>Standard</span></button>
-        <button class="scientific"><svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <button class="scientific mode"><svg width="20" height="20" viewBox="0 0 24 24" fill="none">
             <path d="M9 4H15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
             <path d="M10 4V9L6.5 16.5C5.8 18 6.9 20 8.6 20H15.4C17.1 20 18.2 18 17.5 16.5L14 9V4" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
             <path d="M8.5 15H15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
         </svg><span>Scientific</span></button>
-        <button class="date"><svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <button class="date mode"><svg width="20" height="20" viewBox="0 0 24 24" fill="none">
             <rect x="4" y="5" width="16" height="15" rx="2" stroke="currentColor" stroke-width="1.8"/>
             <path d="M8 3V7M16 3V7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
             <path d="M4 10H20" stroke="currentColor" stroke-width="1.8"/>
@@ -59,7 +59,7 @@
           <button class="m_button m_s">MS</button>
         </div>
 
-        <div class="buttons_container">
+        <div class="buttons_container standard_mode">
           <button class="calc_but number_1 numbers">1</button>
           <button class="calc_but number_2 numbers">2</button>
           <button class="calc_but number_3 numbers">3</button>
@@ -84,6 +84,17 @@
           <button class="calc_but clear_all change">C</button>
           <button class="calc_but backspace change">⌫</button>
           <button class="calc_but equals change">=</button>
+          <button class="calc_but adv_but π" data-value="π">π</button>
+          <button class="calc_but adv_but e" data-value="e">e</button>
+          <button class="calc_but adv_but exp" data-value="*10^">exp</button>
+          <button class="calc_but adv_but mod" data-value="mod">mod</button>
+          <button class="calc_but adv_but factorial" data-value="!">x!</button>
+          <button class="calc_but adv_but log10" data-value="log10">log <sub>10</sub></button>
+          <button class="calc_but adv_but loge" data-value="loge">log <sub>e</sub> </button>
+          <button class="calc_but adv_but logx" data-value="log">log<sub>x</sub></button>
+          <button class="calc_but adv_but module">|</button>
+          <button class="calc_but adv_but x2" data-value="^2">x^2</button>
+          <button class="calc_but adv_but x3" data-value="^3">x^3</button>
         </div>
       </div>
     </div>

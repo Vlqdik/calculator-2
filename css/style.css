@@ -481,6 +481,26 @@ body {
   margin: 10px 0 0 10px;
 }
 
+.buttons_container.scientific_mode {
+  grid-template-areas: "pi e clearLast clearAll backspace" "x2 x3 extent factorial exp" "module bracketOpen bracketClose percent divide" "root n7 n8 n9 multiply" "mod n4 n5 n6 plus" "logx n1 n2 n3 minus" "loge log10 n0 dot equals";
+}
+
+.buttons_container.scientific_mode .adv_but {
+  display: block;
+}
+
+.buttons_container.scientific_mode .calc_but {
+  height: 80px;
+  margin: 1.5px;
+  border-radius: 5px;
+  border: none;
+  font-size: 22px;
+}
+
+.scientific_m {
+  margin-top: 75px;
+}
+
 @media (max-width: 900px) {
   body {
     display: block;
@@ -526,6 +546,64 @@ body {
   .buttons_container {
     justify-content: space-between;
   }
+}
+.adv_but {
+  color: white;
+  background-color: rgba(200, 200, 200, 0.1);
+}
+.adv_but:hover {
+  background-color: rgba(165, 165, 165, 0.1);
+}
+.adv_but:active {
+  color: rgb(230, 230, 230);
+  background-color: rgba(125, 125, 125, 0.1);
+}
+.adv_but {
+  display: none;
+}
+
+.π {
+  grid-area: pi;
+}
+
+.e {
+  grid-area: e;
+}
+
+.exp {
+  grid-area: exp;
+}
+
+.factorial {
+  grid-area: factorial;
+}
+
+.log10 {
+  grid-area: log10;
+}
+
+.loge {
+  grid-area: loge;
+}
+
+.logx {
+  grid-area: logx;
+}
+
+.module {
+  grid-area: module;
+}
+
+.x2 {
+  grid-area: x2;
+}
+
+.x3 {
+  grid-area: x3;
+}
+
+.mod {
+  grid-area: mod;
 }
 
 /*# sourceMappingURL=style.css.map */

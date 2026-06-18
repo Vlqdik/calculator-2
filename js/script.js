@@ -12,6 +12,11 @@ const sqrt = document.querySelector('.sqrt');
 const percent = document.querySelector('.percent');
 const burger = document.querySelector('.burger');
 const sideMenu = document.querySelector('.side_menu');
+const scientific = document.querySelector('.scientific');
+const buttonsContainer = document.querySelector('.buttons_container'); 
+const standart = document.querySelector('.standard');
+const modeButton = document.querySelectorAll('.mode');
+const mButton = document.querySelector('.m_buttons');
 
 const numbersType = ['1','2','3','4','5','6','7','8','9','0'];
 
@@ -358,4 +363,57 @@ function calculateTokens(tokens){
 
 burger.addEventListener('click', function(){
     sideMenu.classList.toggle('active_burger')
+
+    setTimeout(()=>{
+    document.addEventListener('click', closeBurgerClick);
+    document.addEventListener('keydown', closeBurgerEsc);
+}, 0);
+    document.removeEventListener('click', closeBurgerClick);
+})
+
+
+function closeBurger(event){
+    sideMenu.classList.remove('active_burger');
+    document.removeEventListener('click', closeBurgerClick);
+    document.removeEventListener('keydown', closeBurgerEsc);
+}
+
+function closeBurgerClick(event){
+    const outsideClick = !sideMenu.contains(event.target);
+
+    if(outsideClick){
+        closeBurger();
+    }
+}
+
+function closeBurgerEsc(event){
+  if (event.key === 'Escape'){
+    closeBurger();
+  }
+}
+
+
+
+scientific.addEventListener('click', function(){
+    if(document.querySelector('.scientific_mode'))return;
+
+    buttonsContainer.classList.remove('standard_mode');
+    buttonsContainer.classList.add('scientific_mode');
+    mButton.classList.add('scientific_m'); 
+})
+
+standart.addEventListener('click', function(){
+    if (document.querySelector('.standard_mode'))return;
+    
+    buttonsContainer.classList.remove('scientific_mode');
+    buttonsContainer.classList.add('standard_mode');
+    mButton.classList.remove('scientific_m'); 
+
+})
+
+
+modeButton.forEach(function(mode){
+    mode.addEventListener('click', function(){
+    closeBurger();
+})
 })
