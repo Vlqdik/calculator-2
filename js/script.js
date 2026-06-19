@@ -17,9 +17,13 @@ const buttonsContainer = document.querySelector('.buttons_container');
 const standart = document.querySelector('.standard');
 const modeButton = document.querySelectorAll('.mode');
 const mButton = document.querySelector('.m_buttons');
+const modeName = document.querySelector('.calc_version');
+
 
 const numbersType = ['1','2','3','4','5','6','7','8','9','0'];
+const operatorsType = ['+', '-', '*', '/', '^', '.'];
 
+input.value = 0;
 
 percent.addEventListener('click', function(){
     const lastSym = numbersType.find(function(op) {
@@ -37,10 +41,19 @@ percent.addEventListener('click', function(){
 
   openBracket.addEventListener('click', function() {
 
+    if (input.value.endsWith('.')){
+        input.value = input.value.slice(0, -1);
+    }
+
+    if (input.value.endsWith(')')){
+        input.value += '*';
+    }
+
+
     const lastSym = numbersType.find(function(op) {
     return input.value.endsWith(op);
-
     });
+
     if (lastSym){
         input.value += '*(';
     }
@@ -48,30 +61,62 @@ percent.addEventListener('click', function(){
        input.value += '('; 
     }
     
+    scrollInputToEnd();
   });
 
   closeBracket.addEventListener('click', function() {
+
+    const lastOperator = operatorsType.find(function(op) {
+    return input.value.endsWith(op);
+    });
+
+
+    const tokens = tokenize(input.value);
+
+    if(!tokens.includes('('))return;
+
+    let openCount = 0;
+    let closeCount = 0;
+
+    for(let char of tokens){
+        if (char === '(') openCount++;
+        if (char === ')') closeCount++;
+    }
+    
+
+
+    if(closeCount === openCount)return;
+
+    if (lastOperator){
+        input.value = input.value.slice(0 , -1);
+    }
 
     if(input.value.endsWith('(')){
         input.value += '0)'
     } else{
         input.value += ')';
     }
-   
+   scrollInputToEnd();
   });
 
-const operatorsType = ['+', '-', '*', '/', '^', '.'];
 
-input.value = 0;
+
 
 
 numbers.forEach(function(button){
     button.addEventListener('click', function() {
+    
+    if (input.value.endsWith(')')){
+        input.value += '*'
+    }
+
     if (input.value === '0'){
         input.value = button.textContent;
     } else {
         input.value += button.textContent;
     }
+
+    scrollInputToEnd();
 })
 });
 
@@ -83,11 +128,16 @@ operators.forEach(function(operator){
       return input.value.endsWith(op);
     });
     
+    if(input.value.endsWith('(')){
+        input.value += '0';
+    };
+
     if(lastOperator){
         input.value = input.value.slice(0, -lastOperator.length);
     }
 
     input.value += value;
+    scrollInputToEnd();
 });
 });
 
@@ -98,6 +148,16 @@ dot.addEventListener('click', function(){
       return input.value.endsWith(op);
     });
 
+    const tokens = tokenize(input.value);
+
+    let curentNum = tokens.at(-1);
+
+    if(curentNum.includes('.'))return;
+
+    if(input.value.endsWith('(')){
+        input.value +=0
+    }
+
     if(lastOperator){
         input.value += 0 + dot.textContent;
     }
@@ -105,7 +165,7 @@ dot.addEventListener('click', function(){
     else {
         input.value += dot.textContent;
     }
-
+    scrollInputToEnd();
 })
 
 sqrt.addEventListener('click', function(){
@@ -208,6 +268,17 @@ equals.addEventListener('click', function(){
 
 function fixBrackets(expression){
 
+    //const lastOperator = operatorsType.find(function(op) {
+    //return input.value.endsWith(op);
+    //});
+
+    //const tokens = tokenize(input.value)
+
+    if(operatorsType.includes(expression.at(-1))){
+        expression = expression.slice(0, -1);
+    }
+
+
     let openCount = 0;
     let closeCount = 0;
 
@@ -215,6 +286,8 @@ function fixBrackets(expression){
         if (char === '(') openCount++;
         if (char === ')') closeCount++;
     }
+
+
 
     const missingClose = openCount - closeCount;
 
@@ -224,9 +297,8 @@ function fixBrackets(expression){
         } else {
            expression += ')';
         }
-        
-
     };
+
 
 
 
@@ -249,7 +321,6 @@ function calculateTokens(tokens){
         
         const insideResult = calculateTokens(inside);
 
-        console.log(tokens)
 
         tokens.splice(openIndex, closeIndex - openIndex + 1, insideResult);
 
@@ -400,6 +471,7 @@ scientific.addEventListener('click', function(){
     buttonsContainer.classList.remove('standard_mode');
     buttonsContainer.classList.add('scientific_mode');
     mButton.classList.add('scientific_m'); 
+    modeName.textContent = 'Scientific';
 })
 
 standart.addEventListener('click', function(){
@@ -408,7 +480,7 @@ standart.addEventListener('click', function(){
     buttonsContainer.classList.remove('scientific_mode');
     buttonsContainer.classList.add('standard_mode');
     mButton.classList.remove('scientific_m'); 
-
+    modeName.textContent = 'Standard';
 })
 
 
@@ -417,3 +489,10 @@ modeButton.forEach(function(mode){
     closeBurger();
 })
 })
+
+
+function scrollInputToEnd() {
+  setTimeout(function() {
+    input.scrollLeft = input.scrollWidth;
+  }, 0);
+}
