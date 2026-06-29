@@ -95,7 +95,7 @@ align-items: center;
   justify-self: right;
   height: 15vh;
   width: 70vw;
-  color: white;
+  color: rgb(255, 255, 255);
   background-color: transparent;
   outline: none;
   border: none;
@@ -463,10 +463,22 @@ margin-top: 75px;
   grid-area: logx;
 }
 
-.module{
+.open_module{
   grid-area: module;
 }
 
+.buttons_container.scientific_mode .open_module.close_active {
+    display: none;
+}
+
+.buttons_container.scientific_mode .close_module {
+    display: none;
+    grid-area: module;
+}
+
+.buttons_container.scientific_mode .close_module.close_active {
+    display: block;
+}
 
 .x2{
   grid-area: x2;
@@ -484,6 +496,7 @@ margin-top: 75px;
 @media (max-width: 900px) {
   body {
     display: block;
+    height: 100dvh;
   }
 
   .wrapper {
@@ -508,8 +521,7 @@ height: 8vh;
 }
 
 .calc_but{
-@include btn_look(10vh, 1px, 10px , 20px);
-height: 11.8vh;
+@include btn_look(13.3vh, 1px, 10px , 20px);
 width: 23.5vw;
 }
 

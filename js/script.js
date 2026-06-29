@@ -18,34 +18,250 @@ const standart = document.querySelector('.standard');
 const modeButton = document.querySelectorAll('.mode');
 const mButton = document.querySelector('.m_buttons');
 const modeName = document.querySelector('.calc_version');
+const pi = document.querySelector('.π');
+const euler = document.querySelector('.e');
+const factorial = document.querySelector('.factorial');
+const mod = document.querySelector('.mod');
+const openModule = document.querySelector('.open_module');
+const closeModule = document.querySelector('.close_module');
+const log10 = document.querySelector('.log10');
+const logE = document.querySelector('.loge');
+const logx = document.querySelector('.logx');
 
 
-const numbersType = ['1','2','3','4','5','6','7','8','9','0'];
-const operatorsType = ['+', '-', '*', '/', '^', '.'];
+const numbersType = ['1','2','3','4','5','6','7','8','9','0', 'π', 'e'];
+const operatorsType = ['+', '-', '*', '/', '^', '.', 'm'];
+const specialOpType = ['!', '%'];
 
 input.value = 0;
+
+
+
+openModule.addEventListener('click', function(){
+    const lastSym = numbersType.find(function(op) {
+    return input.value.endsWith(op);
+    });
+
+    
+
+    if(input.value === '0'){
+        input.value = '|'
+    }
+    else if(lastSym || input.value.endsWith('\\') || input.value.endsWith(')') || input.value.endsWith('%') || input.value.endsWith('!')){
+    input.value += '*|';
+    }else if(input.value.endsWith('.')){
+        input.value = input.value.slice(0, -1);
+        input.value += '*|'
+    } 
+    else {
+        input.value += '|';
+    }
+    scrollInputToEnd();
+    actOpModule();
+})
+
+function actOpModule(){
+    openModule.classList.add('close_active');
+    closeModule.classList.add('close_active');
+}
+
+function actCloseModule(){
+    openModule.classList.remove('close_active');
+    closeModule.classList.remove('close_active');
+}
+
+closeModule.addEventListener('click', function(){
+       const lastOperator = operatorsType.find(function(op) {
+      return input.value.endsWith(op);
+    });
+
+    const tokens = tokenize(input.value);
+
+    let curentOpen = tokens.lastIndexOf('|');
+    let curentAfter = tokens.slice(curentOpen + 1);
+    
+    if (curentAfter.includes('(') && !curentAfter.includes(')')){
+        return;
+    }
+    
+    if(input.value.endsWith('|')){
+        input.value += '0';
+    };
+
+    if(lastOperator){
+        input.value = input.value.slice(0, -lastOperator.length);
+    }
+
+    input.value += '\\';
+    scrollInputToEnd();
+    actCloseModule();
+})
+
+log10.addEventListener('click', function(){
+    const lastSym = numbersType.find(function(op) {
+    return input.value.endsWith(op);
+    }); 
+    
+    if(input.value === '0'){
+        input.value = 't(';
+    }
+    else if (input.value.endsWith('(')){
+        input.value += '0+t('
+    }
+    else if(lastSym || input.value.endsWith(')') || input.value.endsWith('\\') || input.value.endsWith('%') || input.value.endsWith('!')){ 
+        input.value += '*t('
+    }
+    else{
+        input.value += 't('
+    }
+    scrollInputToEnd();
+})
+
+logE.addEventListener('click', function(){
+    const lastSym = numbersType.find(function(op) {
+    return input.value.endsWith(op);
+    }); 
+    
+    if(input.value === '0'){
+        input.value = 'n(';
+    }
+    else if (input.value.endsWith('(')){
+        input.value += '0+n('
+    }
+    else if(lastSym || input.value.endsWith(')') || input.value.endsWith('\\') || input.value.endsWith('%') || input.value.endsWith('!')){ 
+        input.value += '*n('
+    }
+    else{
+        input.value += 'n('
+    }
+    scrollInputToEnd();
+})
+
+logx.addEventListener('click', function(){
+    const lastSym = numbersType.find(function(op) {
+    return input.value.endsWith(op);
+    }); 
+    
+    if(input.value === '0'){
+        input.value = 'ea(';
+    }
+    else if (input.value.endsWith('(')){
+        input.value += 'ea('
+    }
+    else if(input.value.endsWith(')')){ 
+        input.value += '*ea('
+    }
+    else{
+        input.value += 'a('
+    }
+    scrollInputToEnd();
+})
+
+
 
 percent.addEventListener('click', function(){
     const lastSym = numbersType.find(function(op) {
     return input.value.endsWith(op);
-
-    
     });
+
+    const hasSpecialOperator = specialOpType.some(function(operator) {
+        return input.value.endsWith(operator);
+    });
+
+
+    if(hasSpecialOperator)return;
+
     if (lastSym){
         input.value += '%';
     }
+    scrollInputToEnd();
 })
+
+
+factorial.addEventListener('click', function(){
+    const lastSym = numbersType.find(function(op) {
+    return input.value.endsWith(op);
+    });
+
+    const hasSpecialOperator = specialOpType.some(function(operator) {
+    return input.value.endsWith(operator);
+    });
+    if(hasSpecialOperator)return;
+
+    if(lastSym){
+        input.value += '!';
+    }    
+scrollInputToEnd();
+})
+
+
+pi.addEventListener('click', function(){
+    const lastSym = numbersType.find(function(op) {
+    return input.value.endsWith(op);
+    });
+
+    if (input.value.endsWith('%') || input.value.endsWith('!'))return;
+
+    if(input.value.endsWith('.')){
+        input.value = input.value.slice(0, -1);
+        input.value += '*'
+    }
+
+    if (input.value.endsWith(')') || input.value.endsWith('\\')){
+        input.value += '*'
+    }
+    if(input.value === '0'){
+        input.value = input.value.slice(0, -1);
+        input.value += 'π'
+    }
+    else if(lastSym){
+        input.value += '*π';
+    } else{
+        input.value += 'π';
+    }
+    scrollInputToEnd();
+})
+
+euler.addEventListener('click', function(){
+    const lastSym = numbersType.find(function(op) {
+    return input.value.endsWith(op);
+    }); 
+
+    if (input.value.endsWith('%') || input.value.endsWith('!'))return;
+
+    if(input.value.endsWith('.')){
+        input.value = input.value.slice(0, -1);
+        input.value += '*'
+    }
+
+    if (input.value.endsWith(')') || input.value.endsWith('\\')){
+        input.value += '*'
+    }
+    if(input.value === '0'){
+        input.value = input.value.slice(0, -1);
+        input.value += 'e'
+    }
+    else if(lastSym){
+        input.value += '*e';
+    } else{
+        input.value += 'e';
+    }
+    scrollInputToEnd();
+})
+
 
 
 
 
   openBracket.addEventListener('click', function() {
 
+
     if (input.value.endsWith('.')){
         input.value = input.value.slice(0, -1);
     }
+    
 
-    if (input.value.endsWith(')')){
+    if (input.value.endsWith(')') || input.value.endsWith('!') || input.value.endsWith('%') || input.value.endsWith('\\')){
         input.value += '*';
     }
 
@@ -82,8 +298,14 @@ percent.addEventListener('click', function(){
         if (char === '(') openCount++;
         if (char === ')') closeCount++;
     }
-    
 
+
+    let curentOpen = tokens.lastIndexOf('(');
+    let curentAfter = tokens.slice(curentOpen + 1);
+    
+    if (curentAfter.includes('|') && !curentAfter.includes('\\')){
+        return;
+    }
 
     if(closeCount === openCount)return;
 
@@ -101,12 +323,69 @@ percent.addEventListener('click', function(){
 
 
 
+function makeNumberPrettier(numberString){
+    const parts = numberString.split('.');
+
+  const firstPart = parts[0];
+  const secondPart = parts[1];
+
+  let result = '';
+  let count = 0;
+
+  for (let i = firstPart.length - 1; i >= 0; i--){
+        result = firstPart[i] + result;
+        count++
+
+        if(count === 3 && i !== 0){
+            result = ',' + result;
+            count = 0;
+        }
+        }
+
+        if(secondPart !== undefined){
+            result += '.'  + secondPart;
+        }
+    
+    return result;
+}
+
+
+function formatLastNumber(){
+    const originalExpression = input.value;
+    const cleanExpression = originalExpression.replaceAll(',', '');
+    
+    const tokens = tokenize(cleanExpression);  
+    const currentNumber = tokens.at(-1);
+
+    if (!currentNumber) return;
+
+    let displayNumberLength = 0;
+
+    for (let i = originalExpression.length - 1; i >= 0; i--){
+        const char = originalExpression[i];
+
+        if ('0123456789.,'.includes(char)){
+            displayNumberLength++;
+        }else{
+            break
+        }
+    }
+
+    const expressionWithoutLastNumber = originalExpression.slice(0, -displayNumberLength);
+    
+    input.value = expressionWithoutLastNumber + makeNumberPrettier(currentNumber);
+}
+
+
 
 
 numbers.forEach(function(button){
     button.addEventListener('click', function() {
+
+        if (input.value.endsWith('%') || input.value.endsWith('!'))return;
+  
     
-    if (input.value.endsWith(')')){
+    if (input.value.endsWith(')') || input.value.endsWith('π') || input.value.endsWith('e') || input.value.endsWith('\\')){
         input.value += '*'
     }
 
@@ -115,8 +394,8 @@ numbers.forEach(function(button){
     } else {
         input.value += button.textContent;
     }
-
     scrollInputToEnd();
+    formatLastNumber();
 })
 });
 
@@ -128,12 +407,16 @@ operators.forEach(function(operator){
       return input.value.endsWith(op);
     });
     
-    if(input.value.endsWith('(')){
+    if(input.value.endsWith('(')|| input.value.endsWith('|')){
         input.value += '0';
     };
 
     if(lastOperator){
         input.value = input.value.slice(0, -lastOperator.length);
+    }
+
+    if(input.value.endsWith('t') || input.value.endsWith('n')|| input.value.endsWith('a')){
+        input.value = input.value.slice(0, -2);
     }
 
     input.value += value;
@@ -148,14 +431,20 @@ dot.addEventListener('click', function(){
       return input.value.endsWith(op);
     });
 
+    if (input.value.endsWith('%') || input.value.endsWith('!'))return;
+
     const tokens = tokenize(input.value);
 
     let curentNum = tokens.at(-1);
 
     if(curentNum.includes('.'))return;
 
-    if(input.value.endsWith('(')){
+    if(input.value.endsWith('(') || input.value.endsWith('|')){
         input.value +=0
+    }
+
+    if(input.value.endsWith('e') || input.value.endsWith('π') || input.value.endsWith('\\') || input.value.endsWith(')')){
+        input.value += '*0';
     }
 
     if(lastOperator){
@@ -173,7 +462,7 @@ sqrt.addEventListener('click', function(){
     return input.value.endsWith(op);
 
     });
-    if (lastSym){
+    if (lastSym || input.value.endsWith('!') || input.value.endsWith('%') || input.value.endsWith('\\')){
         input.value += '*√(';
     }
     else{
@@ -187,14 +476,33 @@ sqrt.addEventListener('click', function(){
 
 clearAll.addEventListener('click', function(){
 input.value = 0;
+actCloseModule();
 })
 
 
 backspace.addEventListener('click', function(){
+    
     input.value = input.value.slice(0 , -1);
 
     if (input.value === ''){
         input.value = '0';
+    }
+
+    const tokens = tokenize(input.value);
+
+    let openCount = 0;
+    let closeCount = 0;
+
+    for(let char of tokens){
+        if (char === '|') openCount++;
+        if (char === '\\') closeCount++;
+    }
+
+
+    if(openCount > closeCount){
+        actOpModule()
+    } else if (openCount === closeCount){
+        actCloseModule();
     }
 })
 
@@ -206,8 +514,26 @@ clearLast.addEventListener('click', function(){
   
   if (!lastToken) {
     input.value = '0';
+    actCloseModule();
     return;
   }
+
+    let openCount = 0;
+    let closeCount = 0;
+
+    for(let char of tokens){
+        if (char === '|') openCount++;
+        if (char === '\\') closeCount++;
+    }
+
+
+    if(openCount > closeCount){
+        actOpModule()
+    } else if (openCount === closeCount){
+        actCloseModule();
+    }
+
+
     
     input.value = input.value.slice(0, -String(lastToken).length);
   
@@ -223,7 +549,8 @@ function tokenize(expression){
    expression = expression.replaceAll(' ', '');
    expression = expression.replaceAll('×', '*');
    expression = expression.replaceAll('÷', '/');
-
+   expression = expression.replaceAll(',', '');   
+   
     const tokens = [];
     let currentNumber = '';
     
@@ -259,49 +586,52 @@ function calculate(expression){
 
 
 equals.addEventListener('click', function(){
-    const fixedExpression = fixBrackets(input.value);
+    const fixedExpression = fixBracketsAndAbs(input.value);
     const result = calculate(fixedExpression);
     input.value = result;
+    actCloseModule();
 })
 
 
 
-function fixBrackets(expression){
-
-    //const lastOperator = operatorsType.find(function(op) {
-    //return input.value.endsWith(op);
-    //});
-
-    //const tokens = tokenize(input.value)
-
-    if(operatorsType.includes(expression.at(-1))){
+function fixBracketsAndAbs(expression) {
+    if (operatorsType.includes(expression.at(-1))) {
         expression = expression.slice(0, -1);
     }
 
+    const stack = [];
 
-    let openCount = 0;
-    let closeCount = 0;
-
-    for(let char of expression){
-        if (char === '(') openCount++;
-        if (char === ')') closeCount++;
+    for (let char of expression) {
+        if (char === '(' || char === '|') {
+            stack.push(char);
+        } else if (char === ')') {
+            if (stack.at(-1) === '(') {
+                stack.pop();
+            }
+        } else if (char === '\\') {
+            if (stack.at(-1) === '|') {
+                stack.pop();
+            }
+        }
     }
 
+    while (stack.length > 0) {
+        const lastOpen = stack.pop();
 
+        if (lastOpen === '(') {
+            if (expression.endsWith('(')) {
+                expression += '0';
+            }
 
-    const missingClose = openCount - closeCount;
+            expression += ')';
+        } else if (lastOpen === '|') {
+            if (expression.endsWith('|')) {
+                expression += '0';
+            }
 
-    for (let i = 0; i < missingClose; i++) {
-        if (expression.endsWith('(')){
-            expression += '0)';
-        } else {
-           expression += ')';
+            expression += '\\';
         }
-    };
-
-
-
-
+    }
 
     return expression;
 }
@@ -309,6 +639,26 @@ function fixBrackets(expression){
 
 
 function calculateTokens(tokens){
+
+        while (tokens.includes('|')) {
+        const openIndex = tokens.indexOf('|');
+
+        const closeIndex = tokens.indexOf('\\', openIndex);
+
+
+        const inside = tokens.slice(openIndex + 1, closeIndex);
+
+        
+        const insideResult = calculateTokens(inside);
+
+        if (typeof insideResult === 'string') {
+            return insideResult;
+        }
+
+        let absResult = Math.abs(insideResult);
+    
+        tokens.splice(openIndex, closeIndex - openIndex + 1, absResult);
+    }
 
 
     while (tokens.includes('(')) {
@@ -321,14 +671,77 @@ function calculateTokens(tokens){
         
         const insideResult = calculateTokens(inside);
 
-
-        tokens.splice(openIndex, closeIndex - openIndex + 1, insideResult);
-
+        if (typeof insideResult === 'string') {
+            return insideResult;
+        }
         
-    
+        tokens.splice(openIndex, closeIndex - openIndex + 1, insideResult);
     }
    
-// цикл %
+//цикл пи е
+
+      for (let i = 0; i < tokens.length; i++) {
+    if (tokens[i] === 'π') {
+        tokens[i] = Math.PI;
+    }
+}
+
+ for (let i = 0; i < tokens.length; i++) {
+    if (tokens[i] === 'e') {
+        tokens[i] = Math.E;
+    }
+}
+
+//цикл логе и лог10
+
+    for (let i = 0; i < tokens.length; i++){
+        if (tokens[i] === 't'){
+            
+            const Log10Num = Number(tokens[i+1]);
+
+            if(Log10Num <= 0){
+                return 'invalid log10 Input';
+            }
+
+            let Log10Result = Math.log10(Log10Num);
+
+            tokens.splice(i, 2, Log10Result);
+            i = Math.max(i -1, -1);
+        }
+      }
+
+          for (let i = 0; i < tokens.length; i++){
+        if (tokens[i] === 'n'){
+            
+            const LogENum = Number(tokens[i+1]);
+
+            if(LogENum <= 0){
+                return 'invalid logE Input';
+            }
+
+            let LogEResult = Math.log(LogENum);
+
+            tokens.splice(i, 2, LogEResult);
+            i = Math.max(i -1, -1);
+        }
+      }
+
+  
+// цикл %!
+
+    for(let i = 1; i < tokens.length; i++){
+    if(tokens[i] === '!'){
+        const argument = Number(tokens[i-1]);
+
+        let factorialResult = 1;
+            for(let number = 1; number <= argument; number++){
+                factorialResult *= number;
+            }
+            
+            tokens.splice(i-1, 2, factorialResult);
+            i = Math.max(i -1, -1);
+        }
+    }
 
     for (let i = 0; i < tokens.length; i++){
         if (tokens[i] === '%'){
@@ -342,6 +755,28 @@ function calculateTokens(tokens){
         }
       }
 
+//цикл логх
+
+          for (let i = 0; i < tokens.length; i++){
+        if (tokens[i] === 'a'){
+            
+            const LogBaseNum = Number(tokens[i-1]);
+            const logArgumentNum = Number(tokens[i+1])
+
+            if(LogBaseNum <= 0){
+                return 'invalid log base Input';
+            }
+
+            if(logArgumentNum <= 0){
+                return 'invalid log argument Input';
+            }
+
+            let LogXResult = Math.log(logArgumentNum) / Math.log(LogBaseNum);
+
+            tokens.splice(i-1, 3, LogXResult);
+            i = Math.max(i -2, -1);
+        }
+      }
 
 
 
@@ -382,7 +817,9 @@ function calculateTokens(tokens){
 
 
 
-//цикл */ 
+//цикл */m
+
+
       for (let i = 1; i < tokens.length; i += 2){
 
         const middlePriorityOperators  = tokens[i];
@@ -402,7 +839,16 @@ function calculateTokens(tokens){
             
               tokens.splice(i-1, 3, divideResult);
               i = Math.max(i - 2, -1);
-            };
+            } else if (middlePriorityOperators === 'm'){
+                if(secondNumber === 0){
+                return "Cannot divide by zero";
+                }
+                else {
+                let modResult = firstNumber % secondNumber;
+                tokens.splice(i-1, 3, modResult);
+                }
+              i = Math.max(i - 2, -1);
+            }
                 
             }
       
