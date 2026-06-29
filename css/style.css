@@ -46,7 +46,7 @@ body {
   background: radial-gradient(circle at 20% 90%, rgba(46, 53, 36, 0.25), transparent 30%), radial-gradient(ellipse at 65% 20%, rgba(47, 36, 54, 0.25), transparent 50%), radial-gradient(circle at 90% 15%, rgba(85, 54, 54, 0.2), transparent 35%), radial-gradient(circle at 80% 65%, rgba(44, 51, 70, 0.2), transparent 35%), linear-gradient(190deg, #261731 0%, #291c33 50%, #2a202e 100%);
   font-family: "Inter", sans-serif;
   width: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
 }
 
@@ -84,7 +84,7 @@ body {
   height: 20vh;
   display: flex;
   justify-content: right;
-  align-items: center;
+  align-items: start;
 }
 
 .input {
@@ -137,13 +137,17 @@ body {
   color: white;
   height: 50px;
   width: 50px;
-  transition: 0.2s;
+  transition: 0.1s;
 }
 .m_button:hover {
   background-color: rgba(134, 134, 134, 0.2);
 }
 .m_button:active {
   background-color: rgba(78, 78, 78, 0.2);
+}
+
+.m_buttons {
+  padding: 0 0 0 7px;
 }
 
 .header {
@@ -497,10 +501,6 @@ body {
   font-size: 22px;
 }
 
-.m_buttons {
-  margin-top: 0;
-}
-
 .m_buttons.scientific_m {
   margin-top: 75px;
 }
@@ -580,7 +580,6 @@ body {
 @media (max-width: 900px) {
   body {
     display: block;
-    height: 100dvh;
   }
   .wrapper {
     width: 100vw;
@@ -590,16 +589,18 @@ body {
     display: none;
   }
   .input_div {
-    width: 90vw;
+    margin-top: 20px;
+    width: 95vw;
     height: 8vh;
   }
   .input {
+    width: 90vw;
     height: 7vh;
     font-size: 42px;
     padding: 5px;
   }
   .calc_but {
-    height: 13.3vh;
+    height: 12.4dvh;
     margin: 1px;
     border-radius: 10px;
     border: none;
@@ -607,6 +608,7 @@ body {
     width: 23.5vw;
   }
   .m_button {
+    border: 1px solid rgba(134, 134, 134, 0.2);
     height: 5vh;
     width: 5vh;
   }
@@ -621,6 +623,17 @@ body {
   }
   .buttons_container {
     justify-content: space-between;
+  }
+  .buttons_container.scientific_mode .calc_but {
+    height: 9.5dvh;
+    margin: 1px;
+    border-radius: 10px;
+    border: none;
+    font-size: 18px;
+    width: 18.8vw;
+  }
+  .m_buttons.scientific_m {
+    margin-top: 58px;
   }
 }
 
