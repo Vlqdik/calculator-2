@@ -916,6 +916,7 @@ scientific.addEventListener('click', function(){
 
     buttonsContainer.classList.remove('standard_mode');
     buttonsContainer.classList.add('scientific_mode');
+    input.classList.add('scientific_input');
     mButton.classList.add('scientific_m'); 
     modeName.textContent = 'Scientific';
 })
@@ -925,6 +926,7 @@ standart.addEventListener('click', function(){
     
     buttonsContainer.classList.remove('scientific_mode');
     buttonsContainer.classList.add('standard_mode');
+    input.classList.remove('scientific_input');
     mButton.classList.remove('scientific_m'); 
     modeName.textContent = 'Standard';
 })

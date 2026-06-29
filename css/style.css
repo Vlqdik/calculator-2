@@ -101,6 +101,11 @@ body {
   padding: 10px;
 }
 
+.scientific_input.input {
+  font-size: 48px;
+  margin-top: 20px;
+}
+
 .history {
   font-size: 14px;
   color: rgb(255, 255, 255);
@@ -596,8 +601,12 @@ body {
   .input {
     width: 90vw;
     height: 7vh;
-    font-size: 28px;
     padding: 5px;
+    font-size: 48px;
+  }
+  .scientific_input.input {
+    margin-top: 20px;
+    font-size: 28px;
   }
   .calc_but {
     height: 12.4dvh;
