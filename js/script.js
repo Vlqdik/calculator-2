@@ -27,7 +27,13 @@ const closeModule = document.querySelector('.close_module');
 const log10 = document.querySelector('.log10');
 const logE = document.querySelector('.loge');
 const logx = document.querySelector('.logx');
-
+const date = document.querySelector('.date');
+const calcButtons = document.querySelectorAll('.calc_but')
+const memhisWrapper = document.querySelector('.memhis_wrapper');
+const inputDiv = document.querySelector('.input_div');
+const dateFrom = document.querySelector('.date_from');
+const dateTo = document.querySelector('.date_to');
+const differenceResult = document.querySelector('.difference_result');
 
 const numbersType = ['1','2','3','4','5','6','7','8','9','0', 'π', 'e'];
 const operatorsType = ['+', '-', '*', '/', '^', '.', 'm'];
@@ -909,27 +915,138 @@ function closeBurgerEsc(event){
   }
 }
 
+//Калькулятор дат
 
+function getDatePartsDifference(fromValue, toValue){
 
-scientific.addEventListener('click', function(){
-    if(document.querySelector('.scientific_mode'))return;
+    let start = new Date(fromValue);
+    let end = new Date(toValue);
 
-    buttonsContainer.classList.remove('standard_mode');
-    buttonsContainer.classList.add('scientific_mode');
-    input.classList.add('scientific_input');
-    mButton.classList.add('scientific_m'); 
-    modeName.textContent = 'Scientific';
-})
+    if (start > end){
+        const temp = start;
+        start = end;
+        end = temp;
+    }
+    let years = end.getFullYear() - start.getFullYear();
+    let months = end.getMonth() - start.getMonth();
+    let days = end.getDate() - start.getDate();
+
+    if(days < 0){
+        months--
+
+        const previousMonth = new Date(end.getFullYear(), end.getMonth(), 0);
+        days += previousMonth.getDate();
+    }
+    if (months < 0) {
+        years--;
+        months += 12;
+    }
+
+     return { years, months, days };
+
+}
+
+function calculateDateDifference() {
+    if (!dateFrom.value || !dateTo.value) {
+        differenceResult.textContent = '';
+        return;
+    }
+
+    const from = new Date(dateFrom.value);
+    const to = new Date(dateTo.value);
+
+    const diffMs = Math.abs(to - from);
+    const totalDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    const diff = getDatePartsDifference(dateFrom.value, dateTo.value);
+
+differenceResult.textContent = `${dateVisualization(diff.years, diff.months, diff.days)} (${totalDays} days total)`;
+}
+dateFrom.addEventListener('change', calculateDateDifference);
+dateTo.addEventListener('change', calculateDateDifference);
+
+function dateVisualization(years, months, days) {
+    const dateDiff = [];
+
+    if (years > 0) {
+        dateDiff.push(`${years} years`);
+    }
+
+    if (months > 0) {
+        dateDiff.push(`${months} months`);
+    }
+
+    if (days > 0) {
+        dateDiff.push(`${days} days`);
+    }
+
+    if (dateDiff.length === 0) {
+        return '0 days';
+    }
+
+    return dateDiff.join(', ');
+}
+
 
 standart.addEventListener('click', function(){
     if (document.querySelector('.standard_mode'))return;
     
     buttonsContainer.classList.remove('scientific_mode');
+    buttonsContainer.classList.remove('date_mode');
     buttonsContainer.classList.add('standard_mode');
     input.classList.remove('scientific_input');
+    inputDiv.classList.remove('non_memory');
+    memhisWrapper.classList.remove('invisibility')
+    input.classList.remove('non_memory');
+    mButton.classList.remove('non_memory'); 
+    calcButtons.forEach(function(buttons){
+    buttons.classList.remove('date_mod_but');
+    })
+
     mButton.classList.remove('scientific_m'); 
     modeName.textContent = 'Standard';
 })
+
+scientific.addEventListener('click', function(){
+    if(document.querySelector('.scientific_mode'))return;
+
+    buttonsContainer.classList.remove('standard_mode');
+    buttonsContainer.classList.remove('date_mode');
+    buttonsContainer.classList.add('scientific_mode');
+    input.classList.remove('non_memory');
+    inputDiv.classList.remove('non_memory');
+    calcButtons.forEach(function(buttons){
+    buttons.classList.remove('date_mod_but');
+    })
+    memhisWrapper.classList.remove('invisibility')
+    mButton.classList.remove('non_memory'); 
+    input.classList.add('scientific_input');
+
+    
+    mButton.classList.add('scientific_m'); 
+    modeName.textContent = 'Scientific';
+})
+
+date.addEventListener('click', function(){
+    if(document.querySelector('.date_mode'))return;
+
+    buttonsContainer.classList.remove('standard_mode');
+    buttonsContainer.classList.remove('scientific_mode');
+    
+    calcButtons.forEach(function(buttons){
+    buttons.classList.add('date_mod_but');
+    })
+    memhisWrapper.classList.add('invisibility')
+
+    buttonsContainer.classList.add('date_mode');
+    input.classList.add('non_memory');
+    inputDiv.classList.add('non_memory');
+    mButton.classList.remove('scientific_m'); 
+    mButton.classList.add('non_memory'); 
+    modeName.textContent = 'Date';
+})
+
+
 
 
 modeButton.forEach(function(mode){
