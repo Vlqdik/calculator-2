@@ -441,7 +441,11 @@ body {
 
 .side_menu {
   position: fixed;
-  height: 100vh;
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
   width: 250px;
   top: 0;
   left: 0;
@@ -880,6 +884,11 @@ body {
     width: 95vw;
     height: 8vh;
   }
+  .side_menu {
+    padding-top: 25px;
+    grid-template-rows: repeat(15, 40px);
+    max-height: 100dvh;
+  }
   .input {
     width: 90vw;
     height: 7vh;
@@ -889,6 +898,26 @@ body {
   .scientific_input.input {
     margin-top: 20px;
     font-size: 28px;
+  }
+  .conv_but {
+    height: 17.1dvh;
+    margin: 1.5px;
+    border-radius: 5px;
+    border: none;
+    font-size: 22px;
+    width: 18dvw;
+    color: white;
+    background-color: rgba(240, 240, 240, 0.1);
+    box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.25);
+  }
+  .conv_but:hover {
+    background-color: rgba(210, 210, 210, 0.1);
+    box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.1), inset 0 0 3px rgba(0, 0, 0, 0.2);
+  }
+  .conv_but:active {
+    color: rgb(230, 230, 230);
+    box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.075), inset 0 0 3px rgba(0, 0, 0, 0.15);
+    background-color: rgba(150, 150, 150, 0.1);
   }
   .calc_but {
     height: 12.4dvh;
