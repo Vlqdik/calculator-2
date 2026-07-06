@@ -18,6 +18,7 @@
       <div class="header">
         <button class="burger"><div class="brg">☰</div></button>
         <div class="calc_version">Standard</div>
+        <a target="_blank" rel="noopener noreferrer" class="api_by" href="https://www.exchangerate-api.com">Rates By Exchange Rate API</a>
       </div>
 
 
@@ -42,8 +43,126 @@
             <path d="M8 14H8.5M12 14H12.5M16 14H16.5M8 17H8.5M12 17H12.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg><span>Date</span></button>
 
+        <div class="conventers">Converter</div>
+
+        <button class="time_converter mode converter_mode" data-converter="time"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="8"></circle>
+            <path d="M12 8v4l3 2"></path>
+        </svg><span>Time</span></button>
+
+
+          <button class="distance_converter mode converter_mode" data-converter="distance">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="3" width="16" height="18" rx="2"/>
+              <path d="M8 7v2M11 7v4M14 7v2M17 7v4M8 13v2M11 13v4M14 13v2M17 13v4"/>
+          </svg>  <span>Distance</span>
+          </button>
+          
+          <button class="data_converter mode converter_mode" data-converter="data">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="5" width="16" height="14" rx="2"/>
+              <path d="M7 15h10"/>
+              <circle cx="8" cy="11" r="0.8" fill="currentColor" stroke="none"/>
+              <circle cx="11" cy="11" r="0.8" fill="currentColor" stroke="none"/>
+              <path d="M15.5 10.5h2"/>
+            </svg>  <span>Data</span>
+          </button>
+          
+          <button class="volume_converter mode converter_mode" data-converter="volume">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3 19 7 12 11 5 7 12 3Z"/>
+              <path d="M5 7v10l7 4 7-4V7"/>
+              <path d="M12 11v10"/>
+            </svg>
+            <span>Volume</span>
+          </button>
+          
+          <button class="mass_converter mode converter_mode" data-converter="mass">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 8V6a3 3 0 0 1 6 0v2"/>
+              <path d="M8.5 8h7a4.5 4.5 0 0 1 4.5 4.5V16a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5v-3.5A4.5 4.5 0 0 1 8.5 8Z"/>
+            </svg>  <span>Mass</span>
+          </button>
+
+          <button class="speed_converter mode converter_mode" data-converter="speed">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 16h6"/>
+              <path d="M4 12h10"/>
+              <path d="M4 8h6"/>
+              <path d="M15 6l5 6-5 6"/>
+            </svg>  <span>Speed</span>
+          </button>
+
+          <button class="pressure_converter mode converter_mode" data-converter="pressure">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 14a7 7 0 1 1 14 0"/>
+              <path d="M12 14l3.8-3.2"/>
+              <circle cx="12" cy="14" r="1.2"/>
+              <path d="M8 18h8"/>
+              <path d="M10 21h4"/>
+            </svg>  <span>Pressure</span>
+          </button>
+
+          <button class="angle_converter mode converter_mode" data-converter="angle">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 19h14"/>
+              <path d="M5 19l9-10"/>
+              <path d="M8.5 19a3.5 3.5 0 0 1 1-2.5"/>
+            </svg>  <span>Angle</span>
+          </button>
+         
+          <button class="energy_converter mode converter_mode" data-converter="energy">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <path d="M13 2L5 13h5l-1 9 8-11h-5l1-9z"/>
+            </svg>  <span>Energy</span>
+          </button>
+
+
+          <button class="Temperature_converter mode converter_mode" data-converter="temperature">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+            <path d="M10 5a2 2 0 1 1 4 0v8.2a5 5 0 1 1-4 0V5Z"
+                  stroke="white"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"/>
+            <path d="M12 9v7"
+                  stroke="white"
+                  stroke-width="1.8"
+                  stroke-linecap="round"/>
+            <circle cx="12" cy="18.8" r="1.3" fill="white"/>
+          </svg>  <span>Temperature</span>
+          </button>
+
+          <button class="Currency_converter mode converter_mode" data-converter="currency">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+            <path d="M6 8h11"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"/>
+            <path d="M14 5l3 3-3 3"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"/>
+            <path d="M18 16H7"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"/>
+            <path d="M10 13l-3 3 3 3"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"/>
+          </svg><span>Currency</span>
+          </button>
+
+          
+
+
       </div>
 
+
+      <div class="main-area">
 
 
       <div class="calculation_wrapper">
@@ -96,6 +215,7 @@
           <button class="calc_but adv_but close_module" data-value="\">|x|</button>
           <button class="calc_but adv_but x2 operators" data-value="^2">x^2</button>
           <button class="calc_but adv_but x3 operators" data-value="^3">x^3</button>
+
           <div class="date_calc">
             <div class="date_divs">From</div>
             <input type="date" class="date_from date_but">
@@ -106,7 +226,60 @@
           </div>
         </div>
       </div>
+
+
+             <div class="converters_wraper">
+            
+              <div class="converter_calc">
+                <div class="converter_block">
+                  <label class="converter_label">From</label>
+                
+                  <input type="text" class="converter_input converter_from_value" value="0" readonly>
+                
+                  <select class="converter_select converter_from_unit"></select>
+                </div>
+              
+                <div class="converter_block">
+                  <label class="converter_label">To</label>
+                
+                  <input type="text" class="converter_input converter_to_value" value="0" readonly>
+                
+                  <select class="converter_select converter_to_unit"></select>
+                </div>
+              </div>
+
+              <div class="converters_buttons">
+                
+                <button class="conv_but conv_but0" data-value="0">0</button>
+                <button class="conv_but conv_but1" data-value="1">1</button>
+                <button class="conv_but conv_but2" data-value="2">2</button>
+                <button class="conv_but conv_but3" data-value="3">3</button>
+                <button class="conv_but conv_but4" data-value="4">4</button>
+                <button class="conv_but conv_but5" data-value="5">5</button>
+                <button class="conv_but conv_but6" data-value="6">6</button>
+                <button class="conv_but conv_but7" data-value="7">7</button>
+                <button class="conv_but conv_but8" data-value="8">8</button>
+                <button class="conv_but conv_but9" data-value="9">9</button>
+                <button class="conv_but dot_c" data-value=".">.</button>
+
+                <button class="conv_but clear_all_c">CE</button>          
+                <button class="conv_but clear_last_c">⌫</button>
+              
+
+              </div>
+
+          </div>
+
+</div>
+      
     </div>
+
+
+
+
+
+
+
 
     <div class="memhis_wrapper">
 

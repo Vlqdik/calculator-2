@@ -34,6 +34,18 @@ const inputDiv = document.querySelector('.input_div');
 const dateFrom = document.querySelector('.date_from');
 const dateTo = document.querySelector('.date_to');
 const differenceResult = document.querySelector('.difference_result');
+const calculationWrapper = document.querySelector('.calculation_wrapper');
+const mainArea = document.querySelector('.main-area');
+const wrapper = document.querySelector('.wrapper');
+const timeConverter = document.querySelector('.time_converter');
+const converterFromUnit = document.querySelector('.converter_from_unit');
+const converterToUnit = document.querySelector('.converter_to_unit');
+const converterModeButtons = document.querySelectorAll('.converter_mode');
+const converterFromValue = document.querySelector('.converter_from_value');
+const converterToValue = document.querySelector('.converter_to_value');
+const convertersButtons = document.querySelector('.converters_buttons');
+const apiBy = document.querySelector('.api_by');
+
 
 const numbersType = ['1','2','3','4','5','6','7','8','9','0', 'π', 'e'];
 const operatorsType = ['+', '-', '*', '/', '^', '.', 'm'];
@@ -988,17 +1000,211 @@ function dateVisualization(years, months, days) {
 }
 
 
+//конвертеры
+
+convertersButtons.addEventListener('click', function(event){
+    const button = event.target.closest('.conv_but');
+
+     if (!button) return;
+
+    if(button.classList.contains('clear_all_c')){
+        activeConverterInput.value = '0';
+        convertValue();
+        return;
+    }
+
+    if(button.classList.contains('clear_last_c')){
+        activeConverterInput.value = activeConverterInput.value.slice(0, -1);
+
+        if(activeConverterInput.value === ''){
+            activeConverterInput.value = '0';
+        }
+         convertValue();
+        return;
+    }
+
+    const value = button.dataset.value;
+
+    if (!value) return;
+
+if (value === '.' && activeConverterInput.value.includes('.')) return;
+
+ if (activeConverterInput.value === '0' && value !== '.') {
+        activeConverterInput.value = value;
+    } else {
+        activeConverterInput.value += value;
+    };
+
+convertValue();
+})
+
+
+function convertValue(){
+
+     const converter = converters[currentConverter];
+
+    const fromUnit = converter.units.find(function(unit) {
+    return unit.value === converterFromUnit.value;
+    });    
+
+    const toUnit = converter.units.find(function(unit) {
+    return unit.value === converterToUnit.value;
+    });    
+
+
+    const value = Number(activeConverterInput.value)
+
+    if (Number.isNaN(value)) return;
+
+    if (activeConverterInput === converterFromValue){
+        const baseValue = fromUnit.toBase(value);
+        const result = toUnit.fromBase(baseValue);
+
+        converterToValue.value = formatConverterNumber(result);
+    } else {
+        const baseValue = toUnit.toBase(value);
+        const result = fromUnit.fromBase(baseValue);
+
+        converterFromValue.value = formatConverterNumber(result);
+    }
+}
+
+function formatConverterNumber(number) {
+    if (!Number.isFinite(number)) {
+        return 'Error';
+    }
+
+    if (number === 0) {
+        return '0';
+    }
+
+    const absNumber = Math.abs(number);
+
+    if (absNumber < 0.000001 || absNumber >= 1000000000000) {
+        return number.toExponential(8);
+    }
+
+    if (Number.isInteger(number)) {
+        return String(number);
+    }
+
+    return String(Number(number.toFixed(10)));
+}
+converterFromUnit.addEventListener('change', convertValue);
+converterToUnit.addEventListener('change', convertValue);
+
+
+
+
+
+async function loadCurrencyRates() {
+    const response = await fetch('https://open.er-api.com/v6/latest/USD');
+
+
+
+
+    if(!response.ok){
+        throw new Error('Failed to load currency rates');
+    }
+
+    const data = await response.json();
+    const rates = data.rates;
+
+    function createCurrencyUnit(code, label) {
+        
+    const apiCode = code.toUpperCase();
+    const unitValue = code.toLowerCase();
+
+    return createLinearUnit(unitValue, label, 1 / rates[apiCode]);
+}
+    
+
+        converters.currency = {
+        title: 'Currency converter',
+        defaultFrom: 'usd',
+        defaultTo: 'eur',
+        units: [
+            createLinearUnit('usd', 'US Dollar', 1),
+
+            createCurrencyUnit('eur', 'Euro'),
+            createCurrencyUnit('pln', 'Polish złoty'),
+            createCurrencyUnit('uah', 'Ukrainian hryvnia'),
+            createCurrencyUnit('gbp', 'British pound'),
+
+            createCurrencyUnit('chf', 'Swiss franc'),
+            createCurrencyUnit('cad', 'Canadian dollar'),
+            createCurrencyUnit('aud', 'Australian dollar'),
+            createCurrencyUnit('nzd', 'New Zealand dollar'),
+
+            createCurrencyUnit('jpy', 'Japanese yen'),
+            createCurrencyUnit('cny', 'Chinese yuan'),
+            createCurrencyUnit('krw', 'South Korean won'),
+            createCurrencyUnit('inr', 'Indian rupee'),
+
+            createCurrencyUnit('czk', 'Czech koruna'),
+            createCurrencyUnit('huf', 'Hungarian forint'),
+            createCurrencyUnit('ron', 'Romanian leu'),
+            createCurrencyUnit('bgn', 'Bulgarian lev'),
+            createCurrencyUnit('try', 'Turkish lira'),
+
+            createCurrencyUnit('gel', 'Georgian lari'),
+            createCurrencyUnit('mdl', 'Moldovan leu'),
+            createCurrencyUnit('kzt', 'Kazakhstani tenge'),
+
+            createCurrencyUnit('brl', 'Brazilian real'),
+            createCurrencyUnit('mxn', 'Mexican peso'),
+            createCurrencyUnit('zar', 'South African rand'),
+            createCurrencyUnit('ils', 'Israeli new shekel'),
+            createCurrencyUnit('aed', 'UAE dirham')
+        ]
+    };
+
+
+}
+
+
+
+
+//переключетали режимов
+
+function openConverterMode() {
+    wrapper.classList.add('converter_mode_active');
+    memhisWrapper.classList.add('invisibility');
+
+    buttonsContainer.classList.remove('standard_mode');
+    buttonsContainer.classList.remove('scientific_mode');
+    buttonsContainer.classList.remove('date_mode');
+    calcButtons.forEach(function(buttons){
+    buttons.classList.remove('date_mod_but');
+    })
+
+
+}
+
+
+function closeConverterMode() {
+    wrapper.classList.remove('converter_mode_active');
+    memhisWrapper.classList.remove('invisibility');
+    apiBy.classList.remove('active');
+}
+
+
+
 standart.addEventListener('click', function(){
     if (document.querySelector('.standard_mode'))return;
     
     buttonsContainer.classList.remove('scientific_mode');
     buttonsContainer.classList.remove('date_mode');
+    closeConverterMode()
+
     buttonsContainer.classList.add('standard_mode');
+
     input.classList.remove('scientific_input');
     inputDiv.classList.remove('non_memory');
     memhisWrapper.classList.remove('invisibility')
     input.classList.remove('non_memory');
-    mButton.classList.remove('non_memory'); 
+    mButton.classList.remove('non_memory');
+
     calcButtons.forEach(function(buttons){
     buttons.classList.remove('date_mod_but');
     })
@@ -1012,6 +1218,9 @@ scientific.addEventListener('click', function(){
 
     buttonsContainer.classList.remove('standard_mode');
     buttonsContainer.classList.remove('date_mode');
+    closeConverterMode();
+
+
     buttonsContainer.classList.add('scientific_mode');
     input.classList.remove('non_memory');
     inputDiv.classList.remove('non_memory');
@@ -1032,6 +1241,7 @@ date.addEventListener('click', function(){
 
     buttonsContainer.classList.remove('standard_mode');
     buttonsContainer.classList.remove('scientific_mode');
+    closeConverterMode();
     
     calcButtons.forEach(function(buttons){
     buttons.classList.add('date_mod_but');
@@ -1045,6 +1255,328 @@ date.addEventListener('click', function(){
     mButton.classList.add('non_memory'); 
     modeName.textContent = 'Date';
 })
+
+//режимы конвертера
+
+converterModeButtons.forEach(function(button) {
+    button.addEventListener('click', async function() {
+        const type = button.dataset.converter;
+        openConverterMode();
+
+        try {
+            if(type === 'currency'){
+                modeName.textContent = 'Loading currencies...';
+                await loadCurrencyRates();
+                apiBy.classList.add('active');
+            } else {
+                apiBy.classList.remove('active');
+            }
+            
+            
+            renderConverter(type);
+        } catch (error) {
+            modeName.textContent = 'Currency error';
+            converterFromValue.value = '0';
+            converterToValue.value = 'Failed to load';
+            console.error(error);
+        }
+
+
+        
+        closeBurger();
+    });
+});
+
+
+
+const converters = {
+//время    
+    time: {
+        title: 'Time converter',
+        defaultFrom: 'seconds',
+        defaultTo: 'minutes',
+        units: [
+            createLinearUnit('milliseconds', 'Milliseconds', 0.001),
+            createLinearUnit('seconds', 'Seconds', 1),
+            createLinearUnit('minutes', 'Minutes', 60),
+            createLinearUnit('hours', 'Hours', 3600),
+            createLinearUnit('days', 'Days', 86400),
+            createLinearUnit('weeks', 'Weeks', 604800)
+        ]
+    },
+
+// растояние 
+
+    distance: {
+    title: 'Distance converter',
+    defaultFrom: 'meters',
+    defaultTo: 'kilometers',
+    units: [
+        createLinearUnit('millimeters', 'Millimeters', 0.001),
+        createLinearUnit('centimeters', 'Centimeters', 0.01),
+        createLinearUnit('meters', 'Meters', 1),
+        createLinearUnit('kilometers', 'Kilometers', 1000),
+
+        createLinearUnit('inches', 'Inches', 0.0254),
+        createLinearUnit('feet', 'Feet', 0.3048),
+        createLinearUnit('yards', 'Yards', 0.9144),
+        createLinearUnit('miles', 'Miles', 1609.344),
+        createLinearUnit('nautical_miles', 'Nautical miles', 1852)
+    ]
+},  
+
+// данные 
+
+    data: {
+        title: 'Data converter',
+        defaultFrom: 'megabytes',
+        defaultTo: 'gigabytes',
+        units: [
+            createLinearUnit('bits', 'Bits', 0.125),
+            createLinearUnit('bytes', 'Bytes', 1),
+
+            createLinearUnit('kilobytes', 'Kilobytes', 1024),
+            createLinearUnit('megabytes', 'Megabytes', 1024 ** 2),
+            createLinearUnit('gigabytes', 'Gigabytes', 1024 ** 3),
+            createLinearUnit('terabytes', 'Terabytes', 1024 ** 4),
+            createLinearUnit('petabytes', 'Petabytes', 1024 ** 5)
+        ]
+    },
+
+// обьем
+
+    volume: {
+    title: 'Volume converter',
+    defaultFrom: 'liters',
+    defaultTo: 'milliliters',
+    units: [
+        createLinearUnit('milliliters', 'Milliliters', 0.001),
+        createLinearUnit('liters', 'Liters', 1),
+        createLinearUnit('cubic_centimeters', 'Cubic centimeters', 0.001),
+        createLinearUnit('cubic_meters', 'Cubic meters', 1000),
+
+        createLinearUnit('teaspoons_us', 'Teaspoons US', 0.00492892159375),
+        createLinearUnit('tablespoons_us', 'Tablespoons US', 0.01478676478125),
+        createLinearUnit('fluid_ounces_us', 'Fluid ounces US', 0.0295735295625),
+        createLinearUnit('cups_us', 'Cups US', 0.2365882365),
+        createLinearUnit('pints_us', 'Pints US', 0.473176473),
+        createLinearUnit('quarts_us', 'Quarts US', 0.946352946),
+        createLinearUnit('gallons_us', 'Gallons US', 3.785411784)
+    ]
+},
+
+// масса 
+
+mass: {
+    title: 'Mass converter',
+    defaultFrom: 'kilograms',
+    defaultTo: 'grams',
+    units: [
+        createLinearUnit('milligrams', 'Milligrams', 0.000001),
+        createLinearUnit('grams', 'Grams', 0.001),
+        createLinearUnit('kilograms', 'Kilograms', 1),
+        createLinearUnit('metric_tons', 'Metric tons', 1000),
+
+        createLinearUnit('ounces', 'Ounces', 0.028349523125),
+        createLinearUnit('pounds', 'Pounds', 0.45359237),
+        createLinearUnit('stones', 'Stones', 6.35029318)
+    ]
+},
+
+// площадь
+
+area: {
+    title: 'Area converter',
+    defaultFrom: 'square_meters',
+    defaultTo: 'square_centimeters',
+    units: [
+        createLinearUnit('square_millimeters', 'Square millimeters', 0.000001),
+        createLinearUnit('square_centimeters', 'Square centimeters', 0.0001),
+        createLinearUnit('square_meters', 'Square meters', 1),
+        createLinearUnit('square_kilometers', 'Square kilometers', 1000000),
+
+        createLinearUnit('square_inches', 'Square inches', 0.00064516),
+        createLinearUnit('square_feet', 'Square feet', 0.09290304),
+        createLinearUnit('square_yards', 'Square yards', 0.83612736),
+        createLinearUnit('acres', 'Acres', 4046.8564224),
+        createLinearUnit('hectares', 'Hectares', 10000),
+        createLinearUnit('square_miles', 'Square miles', 2589988.110336)
+    ]
+},
+// скорость
+speed: {
+    title: 'Speed converter',
+    defaultFrom: 'meters_per_second',
+    defaultTo: 'kilometers_per_hour',
+    units: [
+        createLinearUnit('meters_per_second', 'Meters per second', 1),
+        createLinearUnit('kilometers_per_hour', 'Kilometers per hour', 1 / 3.6),
+        createLinearUnit('miles_per_hour', 'Miles per hour', 0.44704),
+        createLinearUnit('feet_per_second', 'Feet per second', 0.3048),
+        createLinearUnit('knots', 'Knots', 0.514444444)
+    ]
+},
+
+//давление
+
+pressure: {
+    title: 'Pressure converter',
+    defaultFrom: 'pascals',
+    defaultTo: 'bar',
+    units: [
+        createLinearUnit('pascals', 'Pascals', 1),
+        createLinearUnit('kilopascals', 'Kilopascals', 1000),
+        createLinearUnit('megapascals', 'Megapascals', 1000000),
+
+        createLinearUnit('bar', 'Bar', 100000),
+        createLinearUnit('millibar', 'Millibar', 100),
+        createLinearUnit('atmospheres', 'Atmospheres', 101325),
+        createLinearUnit('psi', 'PSI', 6894.757293168),
+        createLinearUnit('torr', 'Torr', 133.3223684211),
+        createLinearUnit('millimeters_of_mercury', 'Millimeters of mercury', 133.322387415)
+    ]
+},
+
+//угол
+
+angle: {
+    title: 'Angle converter',
+    defaultFrom: 'degrees',
+    defaultTo: 'radians',
+    units: [
+        createLinearUnit('degrees', 'Degrees', Math.PI / 180),
+        createLinearUnit('radians', 'Radians', 1),
+        createLinearUnit('gradians', 'Gradians', Math.PI / 200),
+        createLinearUnit('turns', 'Turns', Math.PI * 2),
+        createLinearUnit('arcminutes', 'Arcminutes', Math.PI / 10800),
+        createLinearUnit('arcseconds', 'Arcseconds', Math.PI / 648000)
+    ]
+},
+
+// энергия 
+
+energy: {
+    title: 'Energy converter',
+    defaultFrom: 'joules',
+    defaultTo: 'kilojoules',
+    units: [
+        createLinearUnit('joules', 'Joules', 1),
+        createLinearUnit('kilojoules', 'Kilojoules', 1000),
+
+        createLinearUnit('calories', 'Calories', 4.184),
+        createLinearUnit('kilocalories', 'Kilocalories', 4184),
+
+        createLinearUnit('watt_hours', 'Watt-hours', 3600),
+        createLinearUnit('kilowatt_hours', 'Kilowatt-hours', 3600000),
+
+        createLinearUnit('electronvolts', 'Electronvolts', 1.602176634e-19),
+        createLinearUnit('british_thermal_units', 'British thermal units', 1055.05585262)
+    ]
+},
+
+temperature: {
+    title: 'Temperature converter',
+    defaultFrom: 'celsius',
+    defaultTo: 'fahrenheit',
+    units: [
+        {
+            value: 'celsius',
+            label: 'Celsius',
+            toBase: function(number) {
+                return number;
+            },
+            fromBase: function(number) {
+                return number;
+            }
+        },
+        {
+            value: 'fahrenheit',
+            label: 'Fahrenheit',
+            toBase: function(number) {
+                return (number - 32) * 5 / 9;
+            },
+            fromBase: function(number) {
+                return number * 9 / 5 + 32;
+            }
+        },
+        {
+            value: 'kelvin',
+            label: 'Kelvin',
+            toBase: function(number) {
+                return number - 273.15;
+            },
+            fromBase: function(number) {
+                return number + 273.15;
+            }
+        }
+    ]
+},
+
+
+};
+
+function createLinearUnit(value, label, factor) {
+    return {
+        value: value,
+        label: label,
+        toBase: function(number) {
+            return number * factor;
+        },
+        fromBase: function(number) {
+            return number / factor;
+        }
+    };
+}
+
+
+function fillSelect(select, units, selectedValue){
+    select.innerHTML = '';
+    
+    units.forEach(function(unit){
+        const option = document.createElement('option');
+
+        option.value = unit.value;
+        option.textContent = unit.label;
+
+        select.append(option);
+    })
+    select.value = selectedValue;
+    
+}
+
+let activeConverterInput = converterFromValue;
+
+converterFromValue.addEventListener('click', function() {
+    activeConverterInput = converterFromValue;
+});
+
+converterToValue.addEventListener('click', function() {
+    activeConverterInput = converterToValue;
+});
+
+
+let currentConverter = null;
+
+function renderConverter(type) {
+    currentConverter = type;
+
+    const converter = converters[type];
+
+    modeName.textContent = converter.title;
+
+    fillSelect(converterFromUnit, converter.units, converter.defaultFrom);
+    fillSelect(converterToUnit, converter.units, converter.defaultTo);
+
+    converterFromValue.value = '0';
+    converterToValue.value = '0';
+
+    activeConverterInput = converterFromValue;
+    convertValue();
+}
+
+
+
+
 
 
 

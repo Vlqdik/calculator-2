@@ -156,8 +156,9 @@ body {
 }
 
 .header {
-  display: flex;
+  display: grid;
   grid-area: head;
+  grid-template-columns: 30px 9fr 1fr;
 }
 
 .memhis_wrapper {
@@ -192,8 +193,26 @@ body {
 .wrapper {
   display: grid;
   grid-template-rows: 40px 1fr;
-  grid-template-areas: "head" "calculation" "calculation" "calculation" "calculation" "calculation";
+  grid-template-areas: "head" "main";
   width: 80vw;
+}
+
+.wrapper.converter_mode_active {
+  width: 100vw;
+}
+
+.wrapper.converter_mode_active .calculation_wrapper {
+  display: none;
+}
+
+.wrapper.converter_mode_active .converters_wraper {
+  display: flex;
+}
+
+.main-area {
+  grid-area: main;
+  width: 100%;
+  height: 80dvh;
 }
 
 .buttons_container {
@@ -430,7 +449,7 @@ body {
   border-right: 1px solid rgb(97, 97, 97);
   padding: 5px;
   padding-top: 50px;
-  grid-template-rows: repeat(4, 45px);
+  grid-template-rows: repeat(15, 45px);
   background: radial-gradient(circle at 20% 90%, rgba(53, 42, 36, 0.25), transparent 30%), radial-gradient(ellipse at 65% 20%, rgba(47, 36, 54, 0.25), transparent 50%), radial-gradient(circle at 90% 15%, rgba(85, 54, 54, 0.2), transparent 35%), radial-gradient(circle at 80% 65%, rgba(44, 51, 70, 0.2), transparent 35%), linear-gradient(190deg, #2e2731 0%, #2d2b30 50%, #3a383a 100%);
   border-radius: 10px;
   transform: translateX(-250px);
@@ -499,6 +518,31 @@ body {
 }
 .date:active {
   background-color: rgba(87, 87, 87, 0.25);
+}
+
+.mode {
+  height: 40px;
+  color: white;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  transition: 0.1s;
+  display: flex;
+  align-items: center;
+}
+.mode span {
+  margin: 0 0 0 5px;
+}
+.mode:hover {
+  background-color: rgba(97, 97, 97, 0.3);
+}
+.mode:active {
+  background-color: rgba(87, 87, 87, 0.25);
+}
+.mode svg {
+  height: 20px;
+  width: 20px;
 }
 
 .active_burger {
@@ -665,6 +709,159 @@ body {
 .difference_result {
   color: white;
   font-size: 22px;
+}
+
+.conventers {
+  font-size: 16px;
+  margin: 5px 0 0 10px;
+  font-weight: 700;
+  color: rgb(219, 219, 219);
+}
+
+.converters_wraper {
+  display: none;
+  width: 100%;
+  height: 80dvh;
+  padding: 24px;
+  color: white;
+  justify-content: space-between;
+}
+
+.converters_wraper.active {
+  display: flex;
+}
+
+.converter_calc {
+  display: flex;
+  margin-left: 15px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 22px;
+}
+
+.converter_block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.converter_label {
+  font-size: 18px;
+  opacity: 0.8;
+}
+
+.converter_input, .converter_select {
+  width: 100%;
+  min-height: 54px;
+  padding: 0 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(73, 64, 77, 0.9);
+  color: white;
+  font-size: 20px;
+  outline: none;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.04);
+}
+
+.converter_input:focus,
+.converter_input:focus {
+  border-color: rgba(90, 67, 90, 0.8);
+  box-shadow: 0 0 0 2px rgba(133, 102, 133, 0.8);
+}
+
+.converter_select {
+  cursor: pointer;
+}
+
+.conv_but0 {
+  grid-area: c0;
+}
+
+.conv_but1 {
+  grid-area: c1;
+}
+
+.conv_but2 {
+  grid-area: c2;
+}
+
+.conv_but3 {
+  grid-area: c3;
+}
+
+.conv_but4 {
+  grid-area: c4;
+}
+
+.conv_but5 {
+  grid-area: c5;
+}
+
+.conv_but6 {
+  grid-area: c6;
+}
+
+.conv_but7 {
+  grid-area: c7;
+}
+
+.conv_but8 {
+  grid-area: c8;
+}
+
+.conv_but9 {
+  grid-area: c9;
+}
+
+.dot_c {
+  grid-area: dotC;
+}
+
+.clear_last_c {
+  grid-area: clearLastC;
+}
+
+.clear_all_c {
+  grid-area: clearAllC;
+}
+
+.converters_buttons {
+  display: grid;
+  justify-content: right;
+  grid-template-areas: ". clearAllC clearLastC" "c7 c8 c9" "c4 c5 c6" "c1 c2 c3" ". c0 dotC";
+}
+
+.api_by {
+  display: none;
+  color: rgb(194, 194, 194);
+  text-decoration: none;
+  font-size: 12px;
+  margin: 8px 0 0 10px;
+}
+
+.api_by.active {
+  display: block;
+}
+
+.conv_but {
+  height: 18.1dvh;
+  margin: 1.5px;
+  border-radius: 5px;
+  border: none;
+  font-size: 22px;
+  width: 18dvw;
+  color: white;
+  background-color: rgba(240, 240, 240, 0.1);
+  box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.25);
+}
+.conv_but:hover {
+  background-color: rgba(210, 210, 210, 0.1);
+  box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.1), inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+.conv_but:active {
+  color: rgb(230, 230, 230);
+  box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.075), inset 0 0 3px rgba(0, 0, 0, 0.15);
+  background-color: rgba(150, 150, 150, 0.1);
 }
 
 @media (max-width: 900px) {
