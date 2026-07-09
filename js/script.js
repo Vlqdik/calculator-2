@@ -45,6 +45,8 @@ const converterFromValue = document.querySelector('.converter_from_value');
 const converterToValue = document.querySelector('.converter_to_value');
 const convertersButtons = document.querySelector('.converters_buttons');
 const apiBy = document.querySelector('.api_by');
+const memhisAdaptButton = document.querySelector('.memhis_adapt_button');
+const overlay = document.querySelector('.overlay')
 
 
 const numbersType = ['1','2','3','4','5','6','7','8','9','0', 'π', 'e'];
@@ -898,6 +900,8 @@ function calculateTokens(tokens){
 
 burger.addEventListener('click', function(){
     sideMenu.classList.toggle('active_burger')
+    overlay.classList.toggle('active');
+    memhisAdaptButton.classList.toggle('active_burger');
 
     setTimeout(()=>{
     document.addEventListener('click', closeBurgerClick);
@@ -909,6 +913,8 @@ burger.addEventListener('click', function(){
 
 function closeBurger(event){
     sideMenu.classList.remove('active_burger');
+    memhisAdaptButton.classList.remove('active_burger');
+    overlay.classList.remove('active');
     document.removeEventListener('click', closeBurgerClick);
     document.removeEventListener('keydown', closeBurgerEsc);
 }
@@ -926,6 +932,43 @@ function closeBurgerEsc(event){
     closeBurger();
   }
 }
+
+
+memhisAdaptButton.addEventListener('click', function(){
+    memhisWrapper.classList.toggle('active_history')
+    overlay.classList.toggle('active');
+    burger.classList.toggle('active_history')
+
+    setTimeout(()=>{
+    document.addEventListener('click', closeMemHisClick);
+    document.addEventListener('keydown', closeMemHisEsc);
+}, 0);
+    document.removeEventListener('click', closeMemHisClick);
+})
+
+
+function closeMemHis(event){
+    memhisWrapper.classList.remove('active_history');
+    overlay.classList.remove('active');
+    burger.classList.remove('active_history')
+    document.removeEventListener('click', closeMemHisClick);
+    document.removeEventListener('keydown', closeMemHisEsc);
+}
+
+function closeMemHisClick(event){
+    const outsideClick = !memhisWrapper.contains(event.target);
+
+    if(outsideClick){
+        closeMemHis();
+    }
+}
+
+function closeMemHisEsc(event){
+  if (event.key === 'Escape'){
+    closeMemHis();
+  }
+}
+
 
 //Калькулятор дат
 
@@ -1171,6 +1214,7 @@ function openConverterMode() {
     wrapper.classList.add('converter_mode_active');
     memhisWrapper.classList.add('invisibility');
 
+    memhisAdaptButton.classList.add('non_hismem')
     buttonsContainer.classList.remove('standard_mode');
     buttonsContainer.classList.remove('scientific_mode');
     buttonsContainer.classList.remove('date_mode');
@@ -1183,6 +1227,7 @@ function openConverterMode() {
 
 
 function closeConverterMode() {
+    memhisAdaptButton.classList.remove('non_hismem')
     wrapper.classList.remove('converter_mode_active');
     memhisWrapper.classList.remove('invisibility');
     apiBy.classList.remove('active');
@@ -1593,3 +1638,4 @@ function scrollInputToEnd() {
     input.scrollLeft = input.scrollWidth;
   }, 0);
 }
+

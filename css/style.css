@@ -868,6 +868,47 @@ body {
   background-color: rgba(150, 150, 150, 0.1);
 }
 
+.memhis_adapt_button {
+  display: none;
+  height: 5vh;
+  justify-self: right;
+  width: 5dvh;
+  border-radius: 50%;
+  outline: none;
+  border: none;
+  margin: 5px 10px 0 0;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: 0.1s;
+}
+.memhis_adapt_button:active {
+  background-color: rgba(0, 0, 0, 0.3);
+  transform: scale(0.95);
+}
+
+.memhis_adapt_button.active_burger {
+  z-index: 0;
+}
+
+.burger.active_history {
+  z-index: 0;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(2px);
+  z-index: 90;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+}
+.overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
 @media (max-width: 900px) {
   body {
     display: block;
@@ -898,26 +939,6 @@ body {
   .scientific_input.input {
     margin-top: 20px;
     font-size: 28px;
-  }
-  .conv_but {
-    height: 17.1dvh;
-    margin: 1.5px;
-    border-radius: 5px;
-    border: none;
-    font-size: 22px;
-    width: 18dvw;
-    color: white;
-    background-color: rgba(240, 240, 240, 0.1);
-    box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.25);
-  }
-  .conv_but:hover {
-    background-color: rgba(210, 210, 210, 0.1);
-    box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.1), inset 0 0 3px rgba(0, 0, 0, 0.2);
-  }
-  .conv_but:active {
-    color: rgb(230, 230, 230);
-    box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.075), inset 0 0 3px rgba(0, 0, 0, 0.15);
-    background-color: rgba(150, 150, 150, 0.1);
   }
   .calc_but {
     height: 12.4dvh;
@@ -954,6 +975,72 @@ body {
   }
   .m_buttons.scientific_m {
     margin-top: 58px;
+  }
+  .conv_but.conv_but0 {
+    width: 96dvw;
+    height: 11dvh;
+  }
+  .converters_buttons {
+    display: grid;
+    justify-content: center;
+    grid-template-areas: "c7 c8 c9 clearAllC" "c4 c5 c6 clearLastC" "c1 c2 c3 dotC" "c0 c0 c0 c0";
+  }
+  .conv_but {
+    height: 14.5dvh;
+    margin: 2px;
+    border-radius: 5px;
+    border: none;
+    font-size: 22px;
+    width: 23.2dvw;
+    color: white;
+    background-color: rgba(240, 240, 240, 0.1);
+    box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.25);
+  }
+  .conv_but:hover {
+    background-color: rgba(210, 210, 210, 0.1);
+    box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.1), inset 0 0 3px rgba(0, 0, 0, 0.2);
+  }
+  .conv_but:active {
+    color: rgb(230, 230, 230);
+    box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.075), inset 0 0 3px rgba(0, 0, 0, 0.15);
+    background-color: rgba(150, 150, 150, 0.1);
+  }
+  .converter_calc {
+    display: grid;
+    margin: 40px 0 70px 0px;
+    gap: 22px;
+    grid-template-columns: 1fr 1fr;
+  }
+  .converters_wraper {
+    padding: 5px;
+  }
+  .wrapper.converter_mode_active .converters_wraper {
+    display: grid;
+  }
+  .memhis_adapt_button {
+    display: block;
+    z-index: 120;
+  }
+  .memhis_adapt_button.non_hismem {
+    display: none;
+  }
+  .memhis_wrapper {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 55dvw;
+    height: 100dvh;
+    z-index: 100;
+    background: radial-gradient(circle at 90% 20%, rgba(53, 42, 36, 0.25), transparent 30%), radial-gradient(ellipse at 20% 65%, rgba(47, 36, 54, 0.25), transparent 50%), radial-gradient(circle at 15% 90%, rgba(85, 54, 54, 0.2), transparent 35%), radial-gradient(circle at 65% 80%, rgba(44, 51, 70, 0.2), transparent 35%), linear-gradient(190deg, #2e2731 0%, #2d2b30 50%, #3a383a 100%);
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    transform: translateY(100%);
+    transition: transform 0.25s ease;
+    border-radius: 20px 0 0 20px;
+    overflow-y: auto;
+  }
+  .memhis_wrapper.active_history {
+    transform: translateY(0);
+    display: block;
   }
 }
 
