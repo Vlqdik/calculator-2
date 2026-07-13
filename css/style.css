@@ -169,12 +169,58 @@ body {
   grid-area: calculation;
 }
 
-.history_memory {
+::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(46, 46, 46);
+  box-shadow: inset 0 0 3px black;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 5px #423f42;
+  background: #8e8a8f;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  box-shadow: inset 0 0 5px rgb(39, 33, 41);
+  background: rgb(75, 70, 77);
+}
+
+.history_container {
   color: white;
-  height: 85vh;
+  display: none;
+  height: 95dvh;
   font-size: 14px;
   padding: 10px;
   width: 20vw;
+  overflow-y: auto;
+}
+.history_container.active_history {
+  display: block;
+}
+
+.memory_container {
+  color: white;
+  display: none;
+  height: 95dvh;
+  font-size: 14px;
+  padding: 10px;
+  width: 20vw;
+  overflow-y: auto;
+}
+.memory_container.active_memory {
+  display: block;
+}
+
+.history_style {
+  font-size: 18px;
+  padding: 10px;
+  overflow-wrap: break-word;
 }
 
 .memhis_but {
@@ -188,6 +234,36 @@ body {
   background: none;
   display: none;
   justify-self: right;
+  cursor: pointer;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  transition: 0.2s;
+}
+.clear_history:active {
+  transform: scale(0.9);
+}
+.clear_history.active_his_clean {
+  display: block;
+}
+
+.clear_memory {
+  border: none;
+  color: white;
+  background: none;
+  display: none;
+  justify-self: right;
+  cursor: pointer;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  transition: 0.2s;
+}
+.clear_memory:active {
+  transform: scale(0.9);
+}
+.clear_memory.active_mem_clean {
+  display: block;
 }
 
 .wrapper {
@@ -907,6 +983,46 @@ body {
 .overlay.active {
   opacity: 1;
   pointer-events: all;
+}
+
+.memory_item {
+  margin: 0 10px 10px 0;
+  font-size: 18px;
+}
+
+.mem_but {
+  display: none;
+  border-radius: 10px;
+  font-size: 12px;
+  height: 30px;
+  width: 40px;
+  border: none;
+  background-color: rgba(128, 128, 128, 0.05);
+  color: white;
+}
+.mem_but:hover {
+  background-color: rgba(128, 128, 128, 0.3);
+}
+.mem_but:active {
+  background-color: rgba(192, 192, 192, 0.2);
+}
+
+.memory_button_container {
+  justify-content: right;
+}
+
+.memory_cell {
+  margin-top: 20px;
+  padding: 5px;
+  border-radius: 5px;
+  justify-items: right;
+  height: 80px;
+}
+.memory_cell:hover {
+  background-color: rgba(116, 116, 116, 0.1);
+}
+.memory_cell:hover .mem_but {
+  display: inline-block;
 }
 
 @media (max-width: 900px) {

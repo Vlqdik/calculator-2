@@ -158,25 +158,90 @@ padding: 0 0 0 7px;
   grid-area: calculation;
 }
 
-.history_memory{
+@mixin hisMemCont {
   color:white;
-  height: 85vh;
+  display: none;
+  height: 95dvh;
   font-size: 14px;
   padding: 10px;
   width: 20vw;
+  overflow-y: auto;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: rgb(46, 46, 46);
+  box-shadow: inset 0 0 3px black;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 5px #423f42;
+  background: #8e8a8f;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  box-shadow: inset 0 0 5px rgb(39, 33, 41);
+  background: rgb(75, 70, 77); 
+}
+
+
+.history_container{
+@include hisMemCont; 
+&.active_history{
+  display: block;
+}
+}
+
+.memory_container{
+@include hisMemCont;
+&.active_memory{
+  display: block;
+}
+}
+
+.history_style{
+  font-size: 18px;
+  padding: 10px;
+  overflow-wrap: break-word
+}
+
 
 .memhis_but{
 height: 5vh;
 display: flex;
 }
 
-.clear_history{
+@mixin clean{
   border: none;
   color: white;
   background: none;
   display: none;
   justify-self: right;
+  cursor: pointer;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  transition: 0.2s;
+  &:active{
+    transform: scale(0.9);
+  }
+}
+
+.clear_history{
+@include clean;
+&.active_his_clean{
+  display: block;
+}
+}
+
+.clear_memory{
+@include clean;
+&.active_mem_clean{
+  display: block;
+}
 }
 
 .wrapper{
@@ -786,6 +851,46 @@ grid-area: dotC;
 &.active{
   opacity: 1;
   pointer-events: all;
+}
+}
+
+.memory_item{
+margin: 0 10px 10px 0;
+font-size: 18px;
+}
+
+.mem_but{
+ display: none;
+border-radius: 10px;
+font-size: 12px;
+height: 30px;
+width: 40px;
+border: none;
+background-color: rgba(128, 128, 128, 0.05);
+color: white;
+&:hover{
+  background-color: rgba(128, 128, 128, 0.3);
+}
+&:active{
+  background-color: rgba(192, 192, 192, 0.2);
+}
+}
+
+.memory_button_container{
+  justify-content: right;
+}
+
+.memory_cell{
+  margin-top: 20px;
+  padding: 5px;
+  border-radius: 5px;
+  justify-items: right;
+  height: 80px;
+&:hover{
+background-color: rgba(116, 116, 116, 0.1);
+}
+  &:hover .mem_but{
+ display:inline-block;
 }
 }
 

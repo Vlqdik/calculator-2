@@ -47,11 +47,25 @@ const convertersButtons = document.querySelector('.converters_buttons');
 const apiBy = document.querySelector('.api_by');
 const memhisAdaptButton = document.querySelector('.memhis_adapt_button');
 const overlay = document.querySelector('.overlay')
+const historyButton = document.querySelector('.history');
+const memoryButton = document.querySelector('.memory');
+const historyContainer = document.querySelector('.history_container');
+const memoryContainer = document.querySelector('.memory_container');
+const clearHistory = document.querySelector('.clear_history');
+const clearMemory = document.querySelector('.clear_memory');
+const memoryClear = document.querySelector('.m_c');
+const memoryRecall = document.querySelector('.m_r');
+const memoryPlus = document.querySelector('.m_plus');
+const memoryMinus = document.querySelector('.m_minus');
+const memorySave = document.querySelector('.m_s');
 
 
 const numbersType = ['1','2','3','4','5','6','7','8','9','0', 'π', 'e'];
 const operatorsType = ['+', '-', '*', '/', '^', '.', 'm'];
 const specialOpType = ['!', '%'];
+
+let historyArray = [];
+let memoryArray =[];
 
 input.value = 0;
 
@@ -609,6 +623,10 @@ equals.addEventListener('click', function(){
     const fixedExpression = fixBracketsAndAbs(input.value);
     const result = calculate(fixedExpression);
     input.value = result;
+
+
+    historyArray.unshift({ expression: fixedExpression, result: result});
+    renderHistory()
     actCloseModule();
 })
 
@@ -1639,3 +1657,245 @@ function scrollInputToEnd() {
   }, 0);
 }
 
+
+
+//  история/память
+memoryButton.addEventListener('click', function(){
+clearHistory.classList.remove('active_his_clean') 
+if(memoryArray.length > 0){
+    clearMemory.classList.add('active_mem_clean')
+}
+memoryContainer.classList.add('active_memory');
+historyContainer.classList.remove('active_history');
+})
+
+historyButton.addEventListener('click', function(){
+clearMemory.classList.remove('active_mem_clean')
+
+if(historyArray.length > 0){
+clearHistory.classList.add('active_his_clean') 
+}
+
+historyContainer.classList.add('active_history');
+memoryContainer.classList.remove('active_memory');
+})
+//история
+
+clearHistory.addEventListener('click', function(){
+    clearHistory.classList.remove('active_his_clean')
+    historyContainer.innerHTML = 'There is no history yet.'
+    historyArray = [];
+
+})
+
+
+function renderHistory(){
+    historyContainer.innerHTML = '';
+    let historyContent = '';
+    if(historyContainer.classList.contains('active_history')){
+       clearHistory.classList.add('active_his_clean') 
+    }
+
+    historyArray.forEach(function(item){
+        historyContent += `<div class='history_style' >${item.expression} = ${item.result}</div>`;        
+    })
+
+    historyContainer.innerHTML = historyContent
+}
+
+
+//память
+
+let curentMemoryItem = null; 
+
+clearMemory.addEventListener('click', function(){
+    memoryArray = [];
+    curentMemoryItem = null;
+    memoryContainer.textContent = 'There are no memory yet.'
+    clearMemory.classList.remove('active_mem_clean')
+})
+
+
+
+memorySave.addEventListener('click', function(){
+    const fixedExpression = fixBracketsAndAbs(input.value);
+    const curentResult = calculate(fixedExpression);
+
+    const memoryItem = {
+        value: curentResult
+    };
+
+    memoryArray.unshift(memoryItem);
+    curentMemoryItem = memoryItem;
+
+    renderMemory();
+});
+
+function renderMemory(){
+    memoryContainer.innerHTML = '';
+    let memoryContent = '';
+    if(memoryContainer.classList.contains('active_memory')){
+        clearMemory.classList.add('active_mem_clean');
+    }
+    memoryArray.forEach(function(item, index){
+        memoryContent += `
+            <div class="memory_cell" data-index="${index}">
+                <div class="memory_item">
+                    ${item.value}
+                </div>
+
+                <div class='memory_button_container'>
+                    <button class="mem_but memory_clear">MC</button>
+                    <button class="mem_but memory_add">M+</button>
+                    <button class="mem_but memory_minus">M-</button>
+                    <button class="mem_but memory_pick">MP</button>
+                </div>
+            </div>
+        `;
+    })
+    memoryContainer.innerHTML = memoryContent;
+}
+
+
+
+memoryContainer.addEventListener('click', function(event){
+    const memoryCell = event.target.closest('.memory_cell');
+
+    if(!memoryCell)return;
+
+    const fixedExpression = fixBracketsAndAbs(input.value);
+    const curentResult = calculate(fixedExpression);
+
+    const index = Number(memoryCell.dataset.index);
+
+    if(event.target.closest('.memory_clear')){
+        memoryArray.splice(index, 1);
+    }
+
+    if(event.target.closest('.memory_add')){
+
+    const memoryItem = event.target.closest('.memory_add').previousElementSibling.textContent;
+        memoryArray[index].value += curentResult;
+    }
+
+    if(event.target.closest('.memory_minus')){
+        memoryArray[index].value -= curentResult;
+    }
+    if(event.target.closest('.memory_pick')){
+        curentMemoryItem = memoryArray[index];
+    }
+
+    renderMemory();
+})
+
+//кнопки памяти
+
+memoryClear.addEventListener('click', function(){
+    memoryArray = [];
+    curentMemoryItem = null;
+    memoryContainer.textContent = 'There are no memory yet.'
+    clearMemory.classList.remove('active_mem_clean')
+})
+
+
+
+memoryRecall.addEventListener('click', function(){
+    const tokens = tokenize(input.value);
+    let lastTokenLength = 0;
+
+        for(let i = input.value.length - 1; i >= 0; i--){
+        if('0123456789.,'.includes(input.value[i])){
+        lastTokenLength++;
+        }
+        else{
+            break;
+        }
+}
+
+    if(curentMemoryItem === null){
+        return;
+    }
+
+    const memoryValue = curentMemoryItem.value;
+
+    const lastSym = '0123456789.'.includes(input.value.at(-1));
+
+
+
+    if(curentMemoryItem.value === null){
+        return;
+    }
+
+  
+
+
+    
+    if(tokens.length === 1){
+        if(memoryValue >= 0){
+        input.value = memoryValue
+        }
+        else {
+            input.value = `(0${memoryValue})`
+        }
+    }
+    else if(lastSym){
+        if(memoryValue < 0){
+            input.value = input.value.slice(0, -lastTokenLength);
+            input.value += `(0${memoryValue})`;
+        }
+        else{
+            input.value = input.value.slice(0, -lastTokenLength);
+            input.value += memoryValue
+        }
+    }
+    else if (input.value.endsWith(')') || input.value.endsWith('π') || input.value.endsWith('e') || input.value.endsWith('\\') || input.value.endsWith('%') || input.value.endsWith('!')){
+
+    if(memoryValue < 0){
+        input.value += `*(0${memoryValue})`;
+    }
+    else{
+        input.value += `*${memoryValue}`;
+    }
+
+    }
+    else{
+        
+
+    
+        if(memoryValue < 0){
+            input.value += `(0${memoryValue})`;
+        }
+        else{
+            input.value += memoryValue
+        }
+    }
+})
+
+
+memoryPlus.addEventListener('click',function(){
+
+    if(curentMemoryItem === null){
+        return;
+    }
+
+    const fixedExpression = fixBracketsAndAbs(input.value);
+    const curentResult = calculate(fixedExpression);
+
+    curentMemoryItem.value += curentResult;
+
+    renderMemory();
+})
+
+memoryMinus.addEventListener('click',function(){
+
+    if(curentMemoryItem === null){
+        return;
+    }
+
+    const fixedExpression = fixBracketsAndAbs(input.value);
+    const curentResult = calculate(fixedExpression);
+
+    curentMemoryItem.value -= curentResult;
+
+    renderMemory();
+})
