@@ -4,7 +4,7 @@
 
 @mixin hismem {
   font-size: 14px;
-color: rgb(255, 255, 255);
+color: rgb(215, 215, 215);
 background-color: transparent;
 border: none;
 margin: 0 20px 0 0;
@@ -116,10 +116,26 @@ align-items:start;
 
 .history{
   @include hismem;
+  &.active_history_button{
+    box-shadow: inset 0 -4px 4px -4px rgb(119, 89, 119);
+    border-bottom: 1px solid rgb(119, 89, 119);
+    border-radius: 3px;
+    color: white;
+  }
 }
+
+
+
 
 .memory{
   @include hismem;
+  &.active_memory_button{
+    border-bottom: 1px solid rgb(119, 89, 119);
+    border-radius: 3px;
+    box-shadow: inset 0 -4px 4px -4px rgb(119, 89, 119);
+    color: white;
+  }
+
 }
 
 .m_button{
@@ -896,6 +912,12 @@ background-color: rgba(116, 116, 116, 0.1);
 
 
 
+.memory_cell.selected_memory{
+  background-color: rgba(97, 97, 97, 0.1);
+}
+
+
+
 
 
 
@@ -1037,7 +1059,7 @@ display: none;
   position: fixed;
   right: 0;
   bottom: 0;
-  width: 55dvw;
+  width: 75dvw;
   height: 100dvh;
   z-index: 100;
     background:
@@ -1052,11 +1074,56 @@ display: none;
   border-radius: 20px 0 0 20px;
   overflow-y: auto;
 }
+
 .memhis_wrapper.active_history {
   transform: translateY(0);
   display: block;
 }
 
+.history_container{
+  width: 70dvw;
+}
+
+.memory_container{
+  width: 70dvw;
+}
+
+.clear_history{
+  right: 20px;
+  bottom: 20px;
+}
+
+.mem_but{
+display: inline-block;
+background-color: rgba(128, 128, 128, 0.05);
+color: white;
+&:active{
+  background-color: rgba(128, 128, 128, 0.05);
+}
+}
+.memhis_but{
+  margin: 3px 0 0 10px;
+}
+
+.memory_cell{
+  margin-top: 20px;
+  padding: 5px;
+  border-radius: 5px;
+  justify-items: left;
+  height: 80px;
+  &:hover{
+background-color: transparent;
+}
+  &:active{
+background-color: rgba(116, 116, 116, 0.1);
+}
+}
+
+
+.clear_memory.active_mem_clean{
+  bottom: 20px;
+  right: 20px;
+}
 
 }
 

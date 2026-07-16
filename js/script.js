@@ -70,6 +70,49 @@ let memoryArray =[];
 input.value = 0;
 
 
+function saveMemory(){
+localStorage.setItem('memory', JSON.stringify(memoryArray))
+}
+
+function saveHistory(){
+localStorage.setItem('history', JSON.stringify(historyArray))
+}
+    
+
+function loadHistory(){
+    const savedHistory = localStorage.getItem('history');
+
+    historyArray = JSON.parse(savedHistory) || [];
+
+    if (historyArray.length === 0) {
+    historyContainer.textContent = 'There is no history yet.';
+    return;
+    } 
+
+    renderHistory();
+}
+
+
+
+
+function loadMemory(){
+    const savedMemory = localStorage.getItem('memory');
+
+    memoryArray = JSON.parse(savedMemory) || [];
+
+    if (memoryArray.length === 0){
+    memoryContainer.textContent = 'There is no memory yet.';
+    return;
+    }
+
+    renderMemory();
+
+}
+
+
+
+
+
 
 openModule.addEventListener('click', function(){
     const lastSym = numbersType.find(function(op) {
@@ -626,7 +669,8 @@ equals.addEventListener('click', function(){
 
 
     historyArray.unshift({ expression: fixedExpression, result: result});
-    renderHistory()
+    renderHistory();
+    saveHistory();
     actCloseModule();
 })
 
@@ -974,9 +1018,10 @@ function closeMemHis(event){
 }
 
 function closeMemHisClick(event){
-    const outsideClick = !memhisWrapper.contains(event.target);
+    if (!document.contains(event.target)) return
+    const insideClick = event.target.closest('.memhis_wrapper'); 
 
-    if(outsideClick){
+    if(!insideClick){
         closeMemHis();
     }
 }
@@ -1662,6 +1707,10 @@ function scrollInputToEnd() {
 //  история/память
 memoryButton.addEventListener('click', function(){
 clearHistory.classList.remove('active_his_clean') 
+
+memoryButton.classList.add('active_memory_button');
+historyButton.classList.remove('active_history_button');
+
 if(memoryArray.length > 0){
     clearMemory.classList.add('active_mem_clean')
 }
@@ -1671,6 +1720,11 @@ historyContainer.classList.remove('active_history');
 
 historyButton.addEventListener('click', function(){
 clearMemory.classList.remove('active_mem_clean')
+
+memoryButton.classList.remove('active_memory_button');
+historyButton.classList.add('active_history_button');
+
+
 
 if(historyArray.length > 0){
 clearHistory.classList.add('active_his_clean') 
@@ -1685,7 +1739,7 @@ clearHistory.addEventListener('click', function(){
     clearHistory.classList.remove('active_his_clean')
     historyContainer.innerHTML = 'There is no history yet.'
     historyArray = [];
-
+    saveHistory()
 })
 
 
@@ -1713,6 +1767,7 @@ clearMemory.addEventListener('click', function(){
     curentMemoryItem = null;
     memoryContainer.textContent = 'There are no memory yet.'
     clearMemory.classList.remove('active_mem_clean')
+    saveMemory();
 })
 
 
@@ -1729,6 +1784,7 @@ memorySave.addEventListener('click', function(){
     curentMemoryItem = memoryItem;
 
     renderMemory();
+    saveMemory();
 });
 
 function renderMemory(){
@@ -1739,7 +1795,7 @@ function renderMemory(){
     }
     memoryArray.forEach(function(item, index){
         memoryContent += `
-            <div class="memory_cell" data-index="${index}">
+           <div class="memory_cell ${item === curentMemoryItem ? 'selected_memory' : ''}"  data-index="${index}">
                 <div class="memory_item">
                     ${item.value}
                 </div>
@@ -1784,7 +1840,7 @@ memoryContainer.addEventListener('click', function(event){
     if(event.target.closest('.memory_pick')){
         curentMemoryItem = memoryArray[index];
     }
-
+    saveMemory();
     renderMemory();
 })
 
@@ -1795,6 +1851,7 @@ memoryClear.addEventListener('click', function(){
     curentMemoryItem = null;
     memoryContainer.textContent = 'There are no memory yet.'
     clearMemory.classList.remove('active_mem_clean')
+    saveMemory();
 })
 
 
@@ -1884,6 +1941,7 @@ memoryPlus.addEventListener('click',function(){
     curentMemoryItem.value += curentResult;
 
     renderMemory();
+    saveMemory();
 })
 
 memoryMinus.addEventListener('click',function(){
@@ -1898,4 +1956,13 @@ memoryMinus.addEventListener('click',function(){
     curentMemoryItem.value -= curentResult;
 
     renderMemory();
+    saveMemory();
 })
+
+
+
+
+loadHistory()
+loadMemory()
+
+
