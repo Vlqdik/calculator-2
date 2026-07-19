@@ -114,7 +114,7 @@ body {
   margin: 0 20px 0 0;
 }
 .history:hover {
-  color: rgb(224, 224, 224);
+  color: hovCol;
 }
 .history:active {
   color: rgb(187, 187, 187);
@@ -134,7 +134,7 @@ body {
   margin: 0 20px 0 0;
 }
 .memory:hover {
-  color: rgb(224, 224, 224);
+  color: hovCol;
 }
 .memory:active {
   color: rgb(187, 187, 187);
@@ -1041,6 +1041,393 @@ body {
   background-color: rgba(97, 97, 97, 0.1);
 }
 
+.theme_switch {
+  position: absolute;
+  top: 5px;
+  right: 12px;
+}
+
+.theme_button {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.theme_label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 42px;
+  height: 16px;
+  padding: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 30px;
+  background: linear-gradient(135deg, rgb(34, 27, 55), rgb(65, 48, 88));
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.theme_ball {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 32%, rgba(255, 255, 255, 0.18) 0 9%, transparent 10%), radial-gradient(circle at 67% 62%, rgba(0, 0, 0, 0.18) 0 12%, transparent 13%), radial-gradient(circle at 35% 72%, rgba(0, 0, 0, 0.12) 0 8%, transparent 9%), linear-gradient(145deg, #d8d5e0, #8f899b);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4), inset -2px -2px 4px rgba(0, 0, 0, 0.18), inset 2px 2px 3px rgba(255, 255, 255, 0.25);
+  transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+}
+
+.theme_button:checked + .theme_label {
+  background: linear-gradient(135deg, #ddd8f3, #f3e8f5);
+  border-color: rgba(100, 70, 130, 0.2);
+  box-shadow: inset 0 0 5px rgba(90, 60, 120, 0.15), 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.theme_button:checked + .theme_label .theme_ball {
+  transform: translateX(19px);
+  background: radial-gradient(circle at 35% 30%, #fff8bd 0 15%, transparent 16%), linear-gradient(145deg, #fff176, #ffb300);
+  box-shadow: 0 0 8px rgba(255, 193, 7, 0.8), 0 2px 5px rgba(0, 0, 0, 0.25), inset 2px 2px 3px rgba(255, 255, 255, 0.55);
+}
+
+.theme_button:focus-visible + .theme_label {
+  outline: 2px solid #df98ea;
+  outline-offset: 3px;
+}
+
+body.white_theme {
+  background: radial-gradient(circle at 20% 90%, rgba(174, 201, 137, 0.15), transparent 30%), radial-gradient(ellipse at 70% 12.5%, rgba(145, 242, 255, 0.15), transparent 30%), radial-gradient(circle at 90% 15%, rgba(189, 121, 121, 0.1), transparent 35%), radial-gradient(circle at 80% 65%, rgba(119, 137, 189, 0.1), transparent 35%), linear-gradient(190deg, #fef6ff 0%, #fdebff 50%, #fee6ff 100%);
+}
+
+body.white_theme .burger {
+  color: rgb(0, 0, 0);
+}
+body.white_theme .burger:hover {
+  background-color: rgba(228, 212, 230, 0.75);
+}
+
+body.white_theme .calc_version {
+  color: rgb(0, 0, 0);
+}
+
+body.white_theme .input {
+  color: rgb(3, 3, 3);
+}
+
+body.white_theme .history {
+  font-size: 14px;
+  color: rgb(46, 45, 45);
+  background-color: transparent;
+  border: none;
+  margin: 0 20px 0 0;
+}
+body.white_theme .history:hover {
+  color: hovCol;
+}
+body.white_theme .history:active {
+  color: rgb(92, 91, 91);
+}
+body.white_theme .history.active_history_button {
+  box-shadow: inset 0 -4px 4px -4px rgb(144, 144, 160);
+  border-bottom: 1px solid rgb(144, 144, 160);
+  border-radius: 3px;
+  color: rgb(0, 0, 0);
+}
+
+body.white_theme .memory {
+  font-size: 14px;
+  color: rgb(46, 45, 45);
+  background-color: transparent;
+  border: none;
+  margin: 0 20px 0 0;
+}
+body.white_theme .memory:hover {
+  color: hovCol;
+}
+body.white_theme .memory:active {
+  color: rgb(92, 91, 91);
+}
+body.white_theme .memory.active_memory_button {
+  box-shadow: inset 0 -4px 4px -4px rgb(144, 144, 160);
+  border-bottom: 1px solid rgb(144, 144, 160);
+  border-radius: 3px;
+  color: rgb(0, 0, 0);
+}
+
+body.white_theme .m_button {
+  color: rgb(0, 0, 0);
+}
+body.white_theme .m_button:hover {
+  background-color: rgba(165, 165, 165, 0.3);
+}
+body.white_theme .m_button:active {
+  background-color: rgba(99, 98, 98, 0.3);
+}
+
+body.white_theme .history_container {
+  color: black;
+}
+
+body.white_theme .memory_container {
+  color: black;
+}
+
+body.white_theme ::-webkit-scrollbar-track {
+  background: rgb(255, 255, 255);
+  box-shadow: inset 0 0 3px rgb(71, 71, 71);
+}
+
+body.white_theme ::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 5px #928c92;
+  background: #bfb2c2;
+}
+
+body.white_theme ::-webkit-scrollbar-thumb:hover {
+  box-shadow: inset 0 0 5px rgb(127, 105, 134);
+  background: rgb(146, 137, 150);
+}
+
+body.white_theme .clear_history {
+  color: black;
+}
+
+body.white_theme .clear_memory {
+  color: black;
+}
+
+body.white_theme .numbers, body.white_theme .btn_dot {
+  color: rgb(0, 0, 0);
+  background-color: rgba(240, 240, 240, 0.15);
+  box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.25);
+}
+body.white_theme .numbers:hover, body.white_theme .btn_dot:hover {
+  background-color: rgba(210, 210, 210, 0.25);
+  box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.1), inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+body.white_theme .numbers:active, body.white_theme .btn_dot:active {
+  color: rgb(0, 0, 0);
+  box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.075), inset 0 0 3px rgba(0, 0, 0, 0.15);
+  background-color: rgba(150, 150, 150, 0.1);
+}
+
+body.white_theme .operators, body.white_theme .change, body.white_theme .bracket, body.white_theme .sqrt, body.white_theme .percent {
+  color: rgb(0, 0, 0);
+  background-color: rgba(200, 200, 200, 0.15);
+  box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.25);
+}
+body.white_theme .operators:hover, body.white_theme .change:hover, body.white_theme .bracket:hover, body.white_theme .sqrt:hover, body.white_theme .percent:hover {
+  background-color: rgba(165, 165, 165, 0.25);
+  box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.1), inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+body.white_theme .operators:active, body.white_theme .change:active, body.white_theme .bracket:active, body.white_theme .sqrt:active, body.white_theme .percent:active {
+  color: rgb(0, 0, 0);
+  box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.075), inset 0 0 3px rgba(0, 0, 0, 0.15);
+  background-color: rgba(125, 125, 125, 0.1);
+}
+
+body.white_theme .equals {
+  color: black;
+  background-color: rgb(255, 164, 250);
+}
+body.white_theme .equals:hover {
+  background-color: rgb(255, 179, 251);
+}
+body.white_theme .equals:active {
+  color: rgb(51, 51, 51);
+  background-color: rgb(255, 195, 252);
+}
+
+body.white_theme .side_menu {
+  border-right: 1px solid rgb(70, 70, 70);
+  background: radial-gradient(circle at 20% 90%, rgba(174, 201, 137, 0.15), transparent 30%), radial-gradient(ellipse at 70% 12.5%, rgba(145, 242, 255, 0.15), transparent 30%), radial-gradient(circle at 90% 15%, rgba(189, 121, 121, 0.1), transparent 35%), radial-gradient(circle at 80% 65%, rgba(119, 137, 189, 0.1), transparent 35%), linear-gradient(190deg, #fef6ff 0%, #fdebff 50%, #fee6ff 100%);
+}
+
+body.white_theme .standard {
+  height: 40px;
+  color: rgb(0, 0, 0);
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  transition: 0.1s;
+  display: flex;
+  align-items: center;
+}
+body.white_theme .standard span {
+  margin: 0 0 0 5px;
+}
+body.white_theme .standard:hover {
+  background-color: rgba(97, 97, 97, 0.1);
+}
+body.white_theme .standard:active {
+  background-color: rgba(87, 87, 87, 0.1);
+}
+
+body.white_theme .scientific {
+  height: 40px;
+  color: rgb(0, 0, 0);
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  transition: 0.1s;
+  display: flex;
+  align-items: center;
+}
+body.white_theme .scientific span {
+  margin: 0 0 0 5px;
+}
+body.white_theme .scientific:hover {
+  background-color: rgba(97, 97, 97, 0.1);
+}
+body.white_theme .scientific:active {
+  background-color: rgba(87, 87, 87, 0.1);
+}
+
+body.white_theme .date {
+  height: 40px;
+  color: rgb(0, 0, 0);
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  transition: 0.1s;
+  display: flex;
+  align-items: center;
+}
+body.white_theme .date span {
+  margin: 0 0 0 5px;
+}
+body.white_theme .date:hover {
+  background-color: rgba(97, 97, 97, 0.1);
+}
+body.white_theme .date:active {
+  background-color: rgba(87, 87, 87, 0.1);
+}
+
+body.white_theme .mode {
+  height: 40px;
+  color: rgb(0, 0, 0);
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  transition: 0.1s;
+  display: flex;
+  align-items: center;
+}
+body.white_theme .mode span {
+  margin: 0 0 0 5px;
+}
+body.white_theme .mode:hover {
+  background-color: rgba(97, 97, 97, 0.1);
+}
+body.white_theme .mode:active {
+  background-color: rgba(87, 87, 87, 0.1);
+}
+
+body.white_theme .div_calculator {
+  color: rgb(44, 44, 44);
+}
+
+body.white_theme .adv_but {
+  color: rgb(0, 0, 0);
+  background-color: rgba(200, 200, 200, 0.15);
+  box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.25);
+}
+body.white_theme .adv_but:hover {
+  background-color: rgba(165, 165, 165, 0.25);
+  box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.1), inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+body.white_theme .adv_but:active {
+  color: rgb(0, 0, 0);
+  box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.075), inset 0 0 3px rgba(0, 0, 0, 0.15);
+  background-color: rgba(125, 125, 125, 0.1);
+}
+
+body.white_theme .date_but {
+  background: rgba(204, 179, 216, 0.9);
+  color: rgb(0, 0, 0);
+  border: 1px solid rgba(53, 40, 51, 0.12);
+}
+
+body.white_theme .date_but:focus {
+  border-color: rgba(117, 89, 113, 0.3);
+  box-shadow: 0 0 0 2px rgba(62, 47, 65, 0.3);
+}
+
+body.white_theme .date_but::-webkit-calendar-picker-indicator {
+  filter: invert(0);
+}
+
+body.white_theme .date_divs {
+  color: rgb(0, 0, 0);
+}
+
+body.white_theme .difference_result {
+  color: black;
+}
+
+body.white_theme .conventers {
+  color: rgb(50, 50, 50);
+}
+
+body.white_theme .converters_wraper {
+  color: rgb(0, 0, 0);
+}
+
+body.white_theme .converter_input, body.white_theme .converter_select {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(233, 219, 240, 0.9);
+  color: rgb(0, 0, 0);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.08);
+}
+
+body.white_theme .converter_input:focus,
+body.white_theme .converter_input:focus {
+  border-color: rgba(206, 193, 206, 0.8);
+  box-shadow: 0 0 0 2px rgba(224, 210, 224, 0.8);
+}
+
+body.white_theme .api_by {
+  color: rgb(0, 0, 0);
+}
+
+body.white_theme .conv_but {
+  color: rgb(0, 0, 0);
+  background-color: rgba(240, 240, 240, 0.15);
+  box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.25);
+}
+body.white_theme .conv_but:hover {
+  background-color: rgba(210, 210, 210, 0.25);
+  box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.1), inset 0 0 3px rgba(0, 0, 0, 0.2);
+}
+body.white_theme .conv_but:active {
+  color: rgb(0, 0, 0);
+  box-shadow: inset 0 0 15px rgba(143, 129, 146, 0.075), inset 0 0 3px rgba(0, 0, 0, 0.15);
+  background-color: rgba(150, 150, 150, 0.1);
+}
+
+body.white_theme .memhis_adapt_button {
+  color: black;
+  background-color: rgba(133, 133, 133, 0.1);
+}
+body.white_theme .memhis_adapt_button:active {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+body.white_theme .mem_but {
+  background-color: rgba(128, 128, 128, 0.1);
+  color: black;
+}
+body.white_theme .mem_but:hover {
+  background-color: rgba(128, 128, 128, 0.3);
+}
+body.white_theme .mem_but:active {
+  background-color: rgba(192, 192, 192, 0.2);
+}
+
 @media (max-width: 900px) {
   body {
     display: block;
@@ -1203,7 +1590,7 @@ body {
     height: 80px;
   }
   .memory_cell:hover {
-    background-color: transparent;
+    background-color: rgba(189, 189, 189, 0.1);
   }
   .memory_cell:active {
     background-color: rgba(116, 116, 116, 0.1);
@@ -1211,6 +1598,20 @@ body {
   .clear_memory.active_mem_clean {
     bottom: 20px;
     right: 20px;
+  }
+  body.white_theme .m_button {
+    border: 1px solid rgba(63, 63, 63, 0.2);
+  }
+  body.white_theme .memhis_wrapper {
+    background: radial-gradient(circle at 20% 90%, rgba(174, 201, 137, 0.15), transparent 30%), radial-gradient(ellipse at 70% 12.5%, rgba(145, 242, 255, 0.15), transparent 30%), radial-gradient(circle at 90% 15%, rgba(189, 121, 121, 0.1), transparent 35%), radial-gradient(circle at 80% 65%, rgba(119, 137, 189, 0.1), transparent 35%), linear-gradient(190deg, #fef6ff 0%, #fdebff 50%, #fee6ff 100%);
+    border-left: 1px solid rgba(0, 0, 0, 0.5);
+  }
+  body.white_theme .mem_but {
+    background-color: rgba(128, 128, 128, 0.1);
+    color: black;
+  }
+  .memory_cell:active {
+    background-color: rgba(116, 116, 116, 0.1);
   }
 }
 

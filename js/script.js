@@ -58,6 +58,7 @@ const memoryRecall = document.querySelector('.m_r');
 const memoryPlus = document.querySelector('.m_plus');
 const memoryMinus = document.querySelector('.m_minus');
 const memorySave = document.querySelector('.m_s');
+const themeButton = document.querySelector('.theme_button')
 
 
 const numbersType = ['1','2','3','4','5','6','7','8','9','0', 'π', 'e'];
@@ -69,6 +70,10 @@ let memoryArray =[];
 
 input.value = 0;
 
+const THEME_KEY = 'theme';
+
+let theme = 'dark';
+
 
 function saveMemory(){
 localStorage.setItem('memory', JSON.stringify(memoryArray))
@@ -77,7 +82,12 @@ localStorage.setItem('memory', JSON.stringify(memoryArray))
 function saveHistory(){
 localStorage.setItem('history', JSON.stringify(historyArray))
 }
+
+function saveTheme(){
+    localStorage.setItem(THEME_KEY, theme); 
+}
     
+
 
 function loadHistory(){
     const savedHistory = localStorage.getItem('history');
@@ -90,6 +100,19 @@ function loadHistory(){
     } 
 
     renderHistory();
+}
+
+function loadTheme(){
+    const themeStorage = localStorage.getItem(THEME_KEY); 
+    
+    if (themeStorage === null) {
+        themeButton.checked = false; 
+    } else if (themeStorage === 'light') {
+        themeButton.checked = true;
+    } else {
+        themeButton.checked = false;
+    }
+    themeChange();
 }
 
 
@@ -1959,9 +1982,26 @@ memoryMinus.addEventListener('click',function(){
     saveMemory();
 })
 
+function themeChange(){
+    if (themeButton.checked) {
+        document.body.classList.add('white_theme');
+        theme = 'light';
+    } else {
+        document.body.classList.remove('white_theme');
+        theme = 'dark';
+    }
+}
+
+
+themeButton.addEventListener('change', function(){
+    themeChange();
+    saveTheme();
+});
 
 
 
+
+loadTheme()
 loadHistory()
 loadMemory()
 
