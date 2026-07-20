@@ -684,10 +684,21 @@ function calculate(expression){
 }
 
 
+function fixFloatingPoint(number){
+    if(!Number.isFinite(number)){
+    return number;
+}
+
+
+    return Number(number.toPrecision(15));
+}
+
+
 
 equals.addEventListener('click', function(){
     const fixedExpression = fixBracketsAndAbs(input.value);
-    const result = calculate(fixedExpression);
+    let result = calculate(fixedExpression);
+    result = fixFloatingPoint(result);
     input.value = result;
 
 
@@ -696,6 +707,7 @@ equals.addEventListener('click', function(){
     saveHistory();
     actCloseModule();
 })
+
 
 
 
@@ -1997,6 +2009,69 @@ themeButton.addEventListener('change', function(){
     themeChange();
     saveTheme();
 });
+
+
+
+
+document.addEventListener('keydown', function(event){
+
+    if( buttonsContainer.classList.contains('date_mode') || wrapper.classList.contains('converter_mode_active') || event.target.matches('select, input[type="date"], .converter_input, .theme_button')){
+        return;
+    }
+
+    const key = event.key;
+
+
+    const numberButton = Array.from(numbers).find(function(button){
+        return button.textContent.trim() === key;
+    });
+
+
+    if(numberButton){
+        event.preventDefault();
+        numberButton.click();
+        return;
+    }
+
+
+
+    const operatorButton = Array.from(operators).find(function(button){
+        const buttonValue = button.dataset.value || button.textContent.trim();
+        return buttonValue === key;
+    }) 
+
+
+    if(operatorButton){
+        event.preventDefault();
+        operatorButton.click();
+        return;
+    }
+
+
+        const specialButtons = {
+        '.': dot,
+        '%': percent,
+        '!': factorial,
+        '(': openBracket,
+        ')': closeBracket,
+
+        'Enter': equals,
+        '=': equals,
+
+        'Backspace': backspace,
+        'Delete': clearAll
+    };
+
+
+
+     const button = specialButtons[key];
+
+      if(button){
+        event.preventDefault();
+        button.click();
+    }
+
+})
 
 
 
