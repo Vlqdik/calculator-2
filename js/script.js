@@ -562,7 +562,11 @@ sqrt.addEventListener('click', function(){
     return input.value.endsWith(op);
 
     });
-    if (lastSym || input.value.endsWith('!') || input.value.endsWith('%') || input.value.endsWith('\\')){
+
+    if(input.value === '0'){
+        input.value = '√(';
+    }
+    else if (lastSym || input.value.endsWith('!') || input.value.endsWith('%') || input.value.endsWith('\\')){
         input.value += '*√(';
     }
     else{
